@@ -5,11 +5,17 @@ import { Colors} from './../constants/Colors'
 import * as WebBrowser from "expo-web-browser";
 import { useWarmUpBrowser } from './../hooks/useWarmUpBrowser';
 import { useOAuth } from '@clerk/clerk-expo';
+import { NavigationContainer } from '@react-navigation/native';
+import { Stack } from "expo-router";
+import { useNavigation } from '@react-navigation/native';
+import { Layout } from './../app/(tabs)/_layout'
+import { useRouter, Link} from "expo-router"
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen() {
     useWarmUpBrowser();
+    const navigation = useNavigation();
 
     const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
 
@@ -20,13 +26,14 @@ export default function LoginScreen() {
 
             if (createdSessionId) {
                 setActive({ session: createdSessionId });
+                navigation.navigate(Layout);
             } else {
                 //
             }
         } catch (err) {
             console.error("OAuth error", err);
         }
-    }, []);
+    }, [navigation]);
 
   return (
     <View>
