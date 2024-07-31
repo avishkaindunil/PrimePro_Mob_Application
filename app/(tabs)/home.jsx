@@ -77,6 +77,32 @@ export default function Home() {
                 </LinearGradient>
             </TouchableOpacity>
         </View>
+        <View style={styles.contentContainerThreeSub}>
+            <Image source={require('./../../assets/images/cover-image-two.jpg')}
+            style={styles.coverImage} />
+            <Text style={{
+                fontSize: 20,
+                fontFamily: 'mulish-bold',
+                marginLeft: 18,
+                paddingTop: 10,
+            }}>PrimePro, now Delivering Happiness!</Text>
+            <Text style={{
+                fontSize: 14,
+                fontFamily: 'mulish-medium',
+                marginLeft: 18,
+                paddingTop: 10,
+                color: '#888',
+                lineHeight: 20,
+            }}>PrimePro connects you with the best car wash and vehicle services. Easily find, book, and manage services for a hassle-free car care experience.</Text>
+            <TouchableOpacity style={styles.button}>
+                <LinearGradient
+                    colors={['#050C9C', '#3572EF']}
+                    style={styles.gradient}
+                >
+                    <Text style={styles.buttonText}>Read More</Text>
+                </LinearGradient>
+            </TouchableOpacity>
+        </View>
       </View>
     </ScrollView>
   );
