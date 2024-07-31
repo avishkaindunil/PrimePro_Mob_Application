@@ -44,6 +44,35 @@ export default function Activities() {
         />
         <View style={styles.contentContainer}>
           {selectedTab === 'ongoing' && <Text style={styles.content}>
+            You have no any ongoing booking
+          </Text>}
+
+          {selectedTab === 'completed' && <Text style={styles.content}><View style={styles.carWashContainerOne}>
+              <View style={styles.carWashContainerLeft}>
+                <Image source={require('./../../assets/images/car-wash-icon.png')} 
+                style={styles.carWashIcon} />
+                <View>
+                  <Text style={styles.carWashHeading}>Car Wash</Text>
+                  <Text style={styles.carWashText}>Avishka 704951749</Text>
+                </View>
+              </View>
+              
+              <View style={styles.carWashContainerRight}>
+                <Text style={styles.carWashHeadingTwo}>01 August 2024</Text>
+                <Text style={styles.carWashHeadingTwo}>09.09AM</Text>
+              </View>
+            </View>
+
+            <View style={styles.carWashContainerTwo}>
+              <Text style={styles.completedText}>Completed</Text>
+              <Text style={styles.completedStar}>⭐⭐⭐⭐⭐</Text>
+            </View>
+
+            <View style={styles.carWashContainerTree}>
+              <Text style={styles.detailsText}>Details</Text>
+              <Text style={styles.detailsAmount}>LKR 2250 💵</Text>
+            </View>
+
             <View style={styles.carWashContainerOne}>
               <View style={styles.carWashContainerLeft}>
                 <Image source={require('./../../assets/images/car-wash-icon.png')} 
@@ -52,19 +81,27 @@ export default function Activities() {
                   <Text style={styles.carWashHeading}>Car Wash</Text>
                   <Text style={styles.carWashText}>Avishka 704951749</Text>
                 </View>
-                
               </View>
               
-              <View>
+              <View style={styles.carWashContainerRight}>
                 <Text style={styles.carWashHeadingTwo}>01 August 2024</Text>
                 <Text style={styles.carWashHeadingTwo}>09.09AM</Text>
               </View>
             </View>
+
+            <View style={styles.carWashContainerTwo}>
+              <Text style={styles.completedText}>Completed</Text>
+              <Text style={styles.completedStar}>⭐⭐⭐⭐⭐</Text>
+            </View>
+
+            <View style={styles.carWashContainerTree}>
+              <Text style={styles.detailsText}>Details</Text>
+              <Text style={styles.detailsAmount}>LKR 2250 💵</Text>
+            </View>
             
-          </Text>}
-          {selectedTab === 'completed' && <Text style={styles.content}>Content for Completed</Text>}
-          {selectedTab === 'complaints' && <Text style={styles.content}>Content for Complaints</Text>}
-          {selectedTab === 'cancelled' && <Text style={styles.content}>Content for Cancelled</Text>}
+            </Text>}
+          {selectedTab === 'complaints' && <Text style={styles.content}>You have no complaints</Text>}
+          {selectedTab === 'cancelled' && <Text style={styles.content}>You have not any cancelled booking</Text>}
         </View>
       </View>
     </ScrollView>
@@ -119,6 +156,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f7f7f7',
     // width: '100%',
     borderRadius: 10,
+    marginBottom:15,
   },
   content: {
     fontFamily: 'mulish-medium',
@@ -130,20 +168,35 @@ const styles = StyleSheet.create({
     flexDirection: 'row', // Align items in a row
     // flexWrap: 'wrap', // Allow items to wrap to the next line
     // justifyContent: 'space-around', // Distribute space evenly
-    gap: 7,
+    gap: 18,
     padding: 12,
     alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingBottom: 5,
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 1,
+    marginBottom: 10,
   },
 
   carWashContainerLeft:{
     display: 'flex',
     flexDirection: 'row', // Align items in a row
     // flexWrap: 'wrap', // Allow items to wrap to the next line
-    // justifyContent: 'space-around', // Distribute space evenly
-    gap: 7,
-    padding: 12,
+    justifyContent: 'flex-start', // Distribute space evenly
+    // gap: 15,
+    paddingBottom: 10,
     alignItems: 'center',
   },
+
+  // carWashContainerRight:{
+  //   display: 'flex',
+  //   flexDirection: 'row', // Align items in a row
+  //   // flexWrap: 'wrap', // Allow items to wrap to the next line
+  //   // justifyContent: 'flex-end', // Distribute space evenly
+  //   // gap: 15,
+  //   paddingBottom: 10,
+  //   alignItems: 'center',
+  // },
 
   carWashIcon:{
     width: 32,
@@ -160,14 +213,59 @@ const styles = StyleSheet.create({
   carWashHeadingTwo:{
     fontFamily: 'mulish-bold',
     fontSize:16,
-    paddingLeft: 7,
+    paddingLeft: 5,
   },
 
   carWashText:{
     fontFamily: 'mulish-medium',
     fontSize:14,
     color: '#888',
-    paddingLeft: 10,
+    paddingLeft: 7,
+  },
+
+  carWashContainerTwo:{
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 1,
+    display: 'flex',
+    flexDirection: 'row', // Align items in a row
+    // flexWrap: 'wrap', // Allow items to wrap to the next line
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    gap: 100,
+    width: '100%'
+  },
+
+  completedText:{
+    fontFamily: 'mulish-bold',
+    fontSize: 20,
   },
   
+  completedStar:{
+    fontFamily: 'mulish-bold',
+    fontSize: 18,
+  },
+
+  carWashContainerTree:{
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    gap: 15,
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+
+  detailsText:{
+    fontFamily: 'mulish-medium',
+    color: '#4B70F5',
+    fontSize: 14,
+    paddingRight: 100,
+  },
+
+  detailsAmount:{
+    fontFamily: 'mulish-medium',
+    color: '#000',
+    fontSize: 14,
+  },
 });
