@@ -2,8 +2,32 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Colors} from './../constants/Colors'
 // import { TouchableOpacity } from 'react-native-gesture-handler'
+import * as WebBrowser from "expo-web-browser";
+import { useWarmUpBrowser } from './../hooks/UseWarmUpBrowser';
+import { useOAuth } from '@clerk/clerk-expo';
+
+WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen() {
+    useWarmUpBrowser();
+
+    const { startOAuthFlow } = useOAuth({ strategy: "oauth_google"});
+
+    const onPress = React.useCallback(async () => {
+        try {
+            const { createdSessionId, signIn, SignUp, setActive } =
+            await startOAuthFlow();
+
+            if (createdSessionId) {
+                setActive({ session: createdSessionId });
+            } else {
+
+            }
+        } catch (err) {
+            console.error("OAuth error", err);
+        }
+    }, []);
+
   return (
     <View>
         <View
@@ -70,7 +94,8 @@ export default function LoginScreen() {
         </View>
 
         <View>
-            <TouchableOpacity style={styles.btn}>
+            <TouchableOpacity style={styles.btn}
+            onPress={onPress}>
                 <Text style={{
                     fontFamily: 'mulish-semibold',
                     fontSize:24,
