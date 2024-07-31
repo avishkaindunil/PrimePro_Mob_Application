@@ -4,8 +4,10 @@ import { Tabs } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { Colors} from './../../constants/Colors'
+import { Colors } from './../../constants/Colors'
 import { useWarmUpBrowser } from './../../hooks/useWarmUpBrowser';
+import { NavigationContainer } from '@react-navigation/native';
+import { Stack } from "expo-router";
 
 export default function TabLayout() {
   return (
