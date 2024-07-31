@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Colors} from './../../constants/Colors'
+import { useWarmUpBrowser } from './../../hooks/useWarmUpBrowser';
 
 export default function TabLayout() {
   return (

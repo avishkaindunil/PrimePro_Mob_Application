@@ -3,7 +3,7 @@ import React from 'react'
 import { Colors} from './../constants/Colors'
 // import { TouchableOpacity } from 'react-native-gesture-handler'
 import * as WebBrowser from "expo-web-browser";
-import { useWarmUpBrowser } from './../hooks/UseWarmUpBrowser';
+import { useWarmUpBrowser } from './../hooks/useWarmUpBrowser';
 import { useOAuth } from '@clerk/clerk-expo';
 
 WebBrowser.maybeCompleteAuthSession();
@@ -11,17 +11,17 @@ WebBrowser.maybeCompleteAuthSession();
 export default function LoginScreen() {
     useWarmUpBrowser();
 
-    const { startOAuthFlow } = useOAuth({ strategy: "oauth_google"});
+    const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
 
     const onPress = React.useCallback(async () => {
         try {
-            const { createdSessionId, signIn, SignUp, setActive } =
+            const { createdSessionId, signIn, signUp, setActive } =
             await startOAuthFlow();
 
             if (createdSessionId) {
                 setActive({ session: createdSessionId });
             } else {
-
+                //
             }
         } catch (err) {
             console.error("OAuth error", err);
