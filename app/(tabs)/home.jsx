@@ -2,6 +2,7 @@ import { View, Text, Image, StyleSheet, TextInput, ScrollView, TouchableOpacity 
 import React from 'react';
 import { Colors } from './../../constants/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 export default function Home() {
   return (
@@ -17,13 +18,13 @@ export default function Home() {
           <Text style={styles.wash}>Wash Car</Text>
         </View>
         <View style={styles.itemContainer}>
-          <Image source={require('./../../assets/images/car-small.png')}
-            style={styles.image} />
+          <Image source={require('./../../assets/images/service.png')}
+            style={styles.imageServices} />
           <Text style={styles.wash}>Services</Text>
         </View>
         <View style={styles.itemContainer}>
-          <Image source={require('./../../assets/images/car-small.png')}
-            style={styles.image} />
+          <Image source={require('./../../assets/images/qrcode.png')}
+            style={styles.imageQr} />
           <Text style={styles.wash}>Scan 'N' Go</Text>
         </View>
       </View>
@@ -163,6 +164,18 @@ scrollViewContent: {
     width: 101,
     height: 70,
     borderRadius: 20,
+  },
+  imageServices:{
+    backgroundColor: '#f7f7f7',
+    width: 72,
+    height:72,
+    borderRadius:10,
+  },
+  imageQr:{
+    backgroundColor: '#f7f7f7',
+    width: 72,
+    height:72,
+    borderRadius:10,
   },
   wash: {
     fontFamily: 'mulish-semibold',
