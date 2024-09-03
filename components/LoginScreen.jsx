@@ -111,7 +111,7 @@ const onPressGoogle = async () => {
 
         <Text style={styles.socialText}>Or Login with</Text>
 
-        {/* <View style={styles.socialButtons}>
+        <View style={styles.socialButtons}>
           <TouchableOpacity onPress={onPressGoogle} style={styles.iconButton}>
             <FontAwesome name="google" size={32} color="red" />
           </TouchableOpacity>
@@ -121,7 +121,7 @@ const onPressGoogle = async () => {
           <TouchableOpacity onPress={onPressTwitter} style={styles.iconButton}>
             <FontAwesome name="twitter" size={32} color="#1DA1F2" />
           </TouchableOpacity>
-        </View> */}
+        </View>
         {/* <View style={{
             display:'flex',
             flexDirection:'row',
