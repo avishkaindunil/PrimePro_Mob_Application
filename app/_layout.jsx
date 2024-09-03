@@ -42,13 +42,13 @@ export default function RootLayout() {
         </Stack>
       </SignedIn>
       <SignedOut>
-          <Stack screenOptions={{
+          {/* <Stack screenOptions={{
             headerShown:false
           }}>
           <Stack.Screen name="(tabs)" />
-        </Stack>
+        </Stack> */}
 
-        {/* <LoginScreen /> */}
+        <LoginScreen />
       </SignedOut>
       
     </ClerkProvider>
