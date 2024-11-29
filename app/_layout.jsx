@@ -4,8 +4,6 @@ import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
 import { Text, View } from "react-native";
 import LoginScreen from './../components/LoginScreen';
 import SignupScreen from './../components/SignupScreen';
-import { useWarmUpBrowser } from './../hooks/UseWarmUpBrowser';
-import { NavigationContainer } from '@react-navigation/native';
 import * as SecureStore from "expo-secure-store";
 
 const tokenCache = {
@@ -19,7 +17,7 @@ const tokenCache = {
   async saveToken(key, value) {
     try {
       return SecureStore.setItemAsync(key, value);
-    } catch(err){
+    } catch (err) {
       return;
     }
   },
@@ -27,31 +25,29 @@ const tokenCache = {
 
 export default function RootLayout() {
   useFonts({
-    'mulish':require('./../assets/fonts/Mulish-Regular.ttf'),
-    'mulish-medium':require('./../assets/fonts/Mulish-Medium.ttf'),
-    'mulish-semibold':require('./../assets/fonts/Mulish-SemiBold.ttf'),
-    'mulish-bold':require('./../assets/fonts/Mulish-Bold.ttf'),
-    'mulish-black':require('./../assets/fonts/Mulish-Black.ttf')
-  })
+    'mulish': require('./../assets/fonts/Mulish-Regular.ttf'),
+    'mulish-medium': require('./../assets/fonts/Mulish-Medium.ttf'),
+    'mulish-semibold': require('./../assets/fonts/Mulish-SemiBold.ttf'),
+    'mulish-bold': require('./../assets/fonts/Mulish-Bold.ttf'),
+    'mulish-black': require('./../assets/fonts/Mulish-Black.ttf')
+  });
+
   return (
     <ClerkProvider tokenCache={tokenCache} publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY}>
       <SignedIn>
-        <Stack screenOptions={{
-            headerShown:false
-          }}>
+        <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(tabs)" />
         </Stack>
       </SignedIn>
       <SignedOut>
-          {/* <Stack screenOptions={{
+        {/* <SignupScreen /> */}
+        {/* <LoginScreen /> */}
+        <Stack screenOptions={{
             headerShown:false
           }}>
           <Stack.Screen name="(tabs)" />
-         </Stack> */}
-
-        <SignupScreen />
+         </Stack> 
       </SignedOut>
-      
     </ClerkProvider>
   );
 }

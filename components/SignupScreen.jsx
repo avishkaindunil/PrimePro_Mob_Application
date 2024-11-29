@@ -11,24 +11,37 @@ export default function SignupScreen({ navigation }) {
   });
 
   const [otp, setOtp] = useState('');
+  const [userOtp, setUserOtp] = useState(''); // To store OTP entered by user
   const [showOtpScreen, setShowOtpScreen] = useState(false);
+  const [userId, setUserId] = useState(null); // To store the userId for verification
 
   const handleRegister = async () => {
     try {
-      const response = await fetch('http://192.168.1.100:5000/api/register', {
+      const response = await fetch('http://192.168.103.251:5000/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
-      });      
+      });
+      
       const data = await response.json();
       if (response.ok) {
-        setOtp(data.otp); // Simulate showing OTP
-        setShowOtpScreen(true);
+        setOtp(data.otp); // Set OTP from server response
+        setUserId(data.userId); // Save userId for OTP validation
+        setShowOtpScreen(true); // Show OTP input screen
       } else {
         console.error(data.error);
       }
     } catch (error) {
       console.error('Error:', error);
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    if (userOtp === otp) {
+      // OTP matched, navigate to Home
+      navigation.navigate('Home');
+    } else {
+      alert('Invalid OTP');
     }
   };
 
@@ -75,14 +88,15 @@ export default function SignupScreen({ navigation }) {
           </>
         ) : (
           <View>
-            <Text style={styles.otpText}>Enter OTP sent to your email/phone: {otp}</Text>
+            <Text style={styles.otpText}>Enter OTP sent to your mobile: {otp}</Text>
             <TextInput
               placeholder="OTP"
-              value={otp}
-              onChangeText={(text) => setOtp(text)}
+              value={userOtp}
+              onChangeText={(text) => setUserOtp(text)}
               style={styles.input}
+              keyboardType="numeric"
             />
-            <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Home')}>
+            <TouchableOpacity style={styles.btn} onPress={handleVerifyOtp}>
               <Text style={styles.btnText}>Verify OTP</Text>
             </TouchableOpacity>
           </View>
