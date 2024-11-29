@@ -3,7 +3,7 @@ import { useFonts } from "expo-font";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
 import { Text, View } from "react-native";
 import LoginScreen from './../components/LoginScreen';
-import { useWarmUpBrowser } from './../hooks/useWarmUpBrowser';
+import { useWarmUpBrowser } from './../hooks/UseWarmUpBrowser';
 import { NavigationContainer } from '@react-navigation/native';
 import * as SecureStore from "expo-secure-store";
 
@@ -35,20 +35,20 @@ export default function RootLayout() {
   return (
     <ClerkProvider tokenCache={tokenCache} publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY}>
       <SignedIn>
-        <Stack screenOptions={{
-            headerShown:false
-          }}>
-          <Stack.Screen name="(tabs)" />
-        </Stack>
-      </SignedIn>
-      <SignedOut>
-          {/* <Stack screenOptions={{
+        {/* <Stack screenOptions={{
             headerShown:false
           }}>
           <Stack.Screen name="(tabs)" />
         </Stack> */}
+      </SignedIn>
+      <SignedOut>
+          <Stack screenOptions={{
+            headerShown:false
+          }}>
+          <Stack.Screen name="(tabs)" />
+        // </Stack>
 
-        <LoginScreen />
+        {/* <LoginScreen /> */}
       </SignedOut>
       
     </ClerkProvider>

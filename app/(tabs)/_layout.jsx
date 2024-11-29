@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Colors } from './../../constants/Colors'
-import { useWarmUpBrowser } from './../../hooks/useWarmUpBrowser';
+import { useWarmUpBrowser } from './../../hooks/UseWarmUpBrowser';
 import { NavigationContainer } from '@react-navigation/native';
 import { Stack } from "expo-router";
 
@@ -43,6 +43,8 @@ export default function TabLayout() {
                 size={24} color={color} />
             }}
         />
+        <Tabs.Screen name="help-support" options={{ title: 'Help & Support' }} />
+        <Tabs.Screen name="Custom-ratings-feedback" options={{ title: 'Custom Ratings & Feedback' }} />
     </Tabs>
   )
 }
