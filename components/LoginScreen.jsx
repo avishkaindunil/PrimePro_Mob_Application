@@ -3,15 +3,11 @@ import React, { useState } from 'react';
 import { Colors } from './../constants/Colors';
 import * as WebBrowser from "expo-web-browser";
 import { useWarmUpBrowser } from './../hooks/UseWarmUpBrowser';
-import { useOAuth } from '@clerk/clerk-expo';
-import { useNavigation } from '@react-navigation/native';
-import { FontAwesome } from '@expo/vector-icons';  
-
-WebBrowser.maybeCompleteAuthSession();
+import { useNavigation } from '@react-navigation/native';  // Add this import
 
 export default function LoginScreen() {
   useWarmUpBrowser();
-  const navigation = useNavigation(); // Add navigation hook
+  const navigation = useNavigation();  // Initialize the navigation hook
   
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -23,6 +19,12 @@ export default function LoginScreen() {
   const onPressGoogle = async () => {
     // Google OAuth logic
   };
+
+  const onPressRegister = () => {
+    // Navigating to the Signup screen
+    navigation.navigate('Signup');
+  };
+  
 
   return (
     <View style={{ flex: 1, backgroundColor: '#e7ecff' }}>
@@ -60,16 +62,18 @@ export default function LoginScreen() {
 
         <View style={styles.socialButtons}>
           <TouchableOpacity onPress={onPressGoogle} style={styles.iconButton}>
-            <FontAwesome name="google" size={32} color="red" />
+            {/* Add Google OAuth logic */}
           </TouchableOpacity>
         </View>
 
         {/* Add the Register button */}
         <View style={styles.registerContainer}>
           <Text style={styles.registerText}>Don’t have an account?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('SignupScreen')}>
-            <Text style={styles.registerButton}> Register</Text>
+          {/* Add the onPress method for navigation to SignupScreen */}
+          <TouchableOpacity style={styles.registerButton} onPress={onPressRegister}>
+            <Text style={styles.registerTextOne}>Register</Text>
           </TouchableOpacity>
+
         </View>
       </View>
     </View>
@@ -166,9 +170,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 20,
   },
-  registerText: {
+  registerTextOne: {
     fontSize: 16,
     fontFamily: 'mulish-medium',
+    color: Colors.PRIMARY,
   },
   registerButton: {
     fontSize: 16,
