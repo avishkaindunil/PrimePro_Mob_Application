@@ -1,17 +1,26 @@
 const express = require('express');
 const app = express();
+const routes = require('./routes');
+const pool = require('./db');
 const cors = require('cors');
-const routes = require('./routes'); // Import routes
+
+pool.connect()
+  .then(() => console.log('Database connected successfully'))
+  .catch(err => console.error('Database connection error:', err));
+
 
 app.use(cors());
-app.use(express.json()); // Middleware to parse JSON
-app.use('/api', routes); // Mount routes at /api
+
+// Middleware
+app.use(express.json());
+app.use('/api', routes); // All API routes will be prefixed with `/api`
 
 // Root Route
 app.get('/', (req, res) => {
   res.send('Backend server is running...');
 });
 
+// Start the server
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
