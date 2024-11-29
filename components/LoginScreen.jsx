@@ -2,7 +2,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput } from 'reac
 import React, { useState } from 'react';
 import { Colors } from './../constants/Colors';
 import * as WebBrowser from "expo-web-browser";
-import { useWarmUpBrowser } from './../hooks/useWarmUpBrowser';
+import { useWarmUpBrowser } from './../hooks/UseWarmUpBrowser';
 import { useOAuth } from '@clerk/clerk-expo';
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';  

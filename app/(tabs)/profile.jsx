@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
+import { Link } from 'expo-router';
 import Octicons from '@expo/vector-icons/Octicons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -50,8 +51,16 @@ export default function profile() {
         <Text style={styles.mainTextTwo}>Membership</Text>
       </View>
       <View style={styles.mainContainerThree}>
+        <MaterialIcons name="rate-review" size={24} color="black" />
+        <Link href="/custom-ratings-feedback">
+        <Text style={styles.mainTextTwo}>Custom Ratings & Feedback</Text>
+        </Link>
+      </View>
+      <View style={styles.mainContainerThree}>
         <MaterialIcons name="support-agent" size={24} color="black" />
-        <Text style={styles.mainTextTwo}>Help and Support</Text>
+        <Link href="/help-support">
+          <Text style={styles.mainTextTwo}>Help and Support</Text>
+        </Link>
       </View>
       <View style={styles.mainContainerThree}>
         <MaterialCommunityIcons name="gas-station-outline" size={24} color="black" />
