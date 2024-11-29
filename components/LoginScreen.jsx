@@ -11,84 +11,31 @@ WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen() {
   useWarmUpBrowser();
-  const navigation = useNavigation();
+  const navigation = useNavigation(); // Add navigation hook
   
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
-  const { startOAuthFlow: startFacebookOAuth } = useOAuth({ strategy: "oauth_facebook" });
-  const { startOAuthFlow: startTwitterOAuth } = useOAuth({ strategy: "oauth_twitter" });
-
   const onPressLogin = () => {
-    // Handle login logic here
     console.log(`Login with Username: ${username} and Password: ${password}`);
   };
 
-//   const onPressGoogle = async () => {
-//   try {
-//     const { createdSessionId, setActive } = await startOAuthFlow();
-//     if (createdSessionId) {
-//       setActive({ session: createdSessionId });
-//       navigation.navigate('Home'); // Navigate to 'Home' screen after successful login
-//     }
-//   } catch (err) {
-//     console.error("Google OAuth error", err);
-//   }
-// };
-
-const onPressGoogle = async () => {
-  try {
-    const { createdSessionId, setActive } = await startOAuthFlow();
-    if (createdSessionId) {
-      setActive({ session: createdSessionId });
-      navigation.navigate('Home'); // Ensure 'Home' is the correct route name
-    }
-  } catch (err) {
-    console.error("Google OAuth error", err);
-  }
-};
-
-
-  const onPressFacebook = async () => {
-    try {
-      const { createdSessionId, setActive } = await startFacebookOAuth();
-      if (createdSessionId) {
-        setActive({ session: createdSessionId });
-        // Navigate to the next screen
-      }
-    } catch (err) {
-      console.error("Facebook OAuth error", err);
-    }
-  };
-
-  const onPressTwitter = async () => {
-    try {
-      const { createdSessionId, setActive } = await startTwitterOAuth();
-      if (createdSessionId) {
-        setActive({ session: createdSessionId });
-        // Navigate to the next screen
-      }
-    } catch (err) {
-      console.error("Twitter OAuth error", err);
-    }
+  const onPressGoogle = async () => {
+    // Google OAuth logic
   };
 
   return (
     <View style={{ flex: 1, backgroundColor: '#e7ecff' }}>
       <View style={styles.header}>
         <Text style={styles.title}>Welcome to</Text>
-        <Image
-          source={require('./../assets/images/Transparent.png')}
-          style={styles.logo}
-        />
+        <Image source={require('./../assets/images/Transparent.png')} style={styles.logo} />
       </View>
 
       <View style={styles.container}>
         <Text style={styles.subtitle}>Your <Text style={{ color: Colors.PRIMARY }}>Trusted Partner</Text> in Car Care</Text>
         <Text style={styles.description}>
           PrimePro connects you with top car wash and vehicle services. {'\n'}
-            Find, book, and manage with ease.
+          Find, book, and manage with ease.
         </Text>
 
         <TextInput
@@ -115,23 +62,15 @@ const onPressGoogle = async () => {
           <TouchableOpacity onPress={onPressGoogle} style={styles.iconButton}>
             <FontAwesome name="google" size={32} color="red" />
           </TouchableOpacity>
-          <TouchableOpacity onPress={onPressFacebook} style={styles.iconButton}>
-            <FontAwesome name="facebook" size={32} color="blue" />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={onPressTwitter} style={styles.iconButton}>
-            <FontAwesome name="twitter" size={32} color="#1DA1F2" />
+        </View>
+
+        {/* Add the Register button */}
+        <View style={styles.registerContainer}>
+          <Text style={styles.registerText}>Don’t have an account?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('SignupScreen')}>
+            <Text style={styles.registerButton}> Register</Text>
           </TouchableOpacity>
         </View>
-        {/* <View style={{
-            display:'flex',
-            flexDirection:'row',
-            justifyContent: 'center',
-            marginTop: 25,
-            marginBottom: -30,
-        }}>
-            <Text style={styles.madeInLK}>Made in Sri Lanka 🇱🇰🚀</Text>
-            <Text style={styles.appVersion}>App version 1.0</Text>
-        </View> */}
       </View>
     </View>
   );
@@ -221,5 +160,20 @@ const styles = StyleSheet.create({
     fontFamily: 'mulish-medium',
     fontSize: 14,
     color: '#888',
+  },
+  registerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  registerText: {
+    fontSize: 16,
+    fontFamily: 'mulish-medium',
+  },
+  registerButton: {
+    fontSize: 16,
+    fontFamily: 'mulish-semibold',
+    color: Colors.PRIMARY,
+    marginLeft: 5,
   },
 });
