@@ -1,12 +1,22 @@
 const express = require('express');
-const pool = require('./db'); // Import the database connection
-const router = express.Router(); // Initialize the router
+const pool = require('./db');
+const axios = require('axios');
+const router = express.Router();
+
+let otpStorage = {}; // Temporary storage for OTPs (Replace with Redis/DB in production)
 
 // Register Route
 router.post('/register', async (req, res) => {
   const { firstName, lastName, email, mobile } = req.body;
 
   try {
+    console.log(firstName, lastName, email, mobile);
+
+    // Validate mobile number format
+    if (!/^\94\d{9}$/.test(mobile)) {
+      return res.status(400).json({ error: 'Invalid mobile number format.' });
+    }
+
     // Insert the user into the database
     const result = await pool.query(
       'INSERT INTO users (first_name, last_name, email, mobile) VALUES ($1, $2, $3, $4) RETURNING id',
@@ -14,38 +24,37 @@ router.post('/register', async (req, res) => {
     );
 
     // Generate OTP
-    const otp = Math.floor(100000 + Math.random() * 900000); // Simulate OTP
+    const otp = Math.floor(100000 + Math.random() * 900000);
     console.log('Generated OTP:', otp);
 
+    // Save OTP in memory for validation
+    otpStorage[mobile] = otp;
+
     // Send OTP via Notify.lk API
-    const response = await axios.post('https://app.notify.lk/api/v1/send', {
-      api_key: '7AniEnHWsZKxoYwfZ2cm', // Your Notify.lk API key
-      sender: 'Notify.lk', // Sender name
-      to: mobile, // Recipient's mobile number
-      message: `Your OTP code is ${otp}`, // OTP message
+    await axios.post('https://app.notify.lk/api/v1/send', {
+      user_id: '28552', // Replace with actual user ID
+      api_key: 'ebCiVaRhZqdh7K71N4tu', // Replace with actual API key
+      sender_id: 'NotifyDEMO', // Replace with actual sender ID
+      to: mobile,
+      message: `Your OTP code is ${otp}. Please do not share this code with anyone.`,
     });
 
-    // Log Notify.lk response
-    console.log('Notify.lk Response:', response.data);
-
-    // Respond with the OTP and user ID
-    res.status(201).json({
-      userId: result.rows[0].id,
-      otp: otp, // Send OTP back for testing purposes
-    });
-
+    res.status(201).json({ userId: result.rows[0].id });
   } catch (error) {
-    console.error('Detailed Error:', error); // Log the full error details
-    res.status(500).json({ error: 'Error registering user or sending OTP', details: error.message });
+    console.error('Detailed Error:', error.message || error); 
+    res.status(500).json({ error: error.message || 'Failed to register user or send OTP. Please try again later.' });
   }
 });
 
-
-// OTP Validation Route (optional)
+// OTP Validation Route
 router.post('/verify-otp', (req, res) => {
-  const { otp } = req.body;
-  // Placeholder for actual OTP validation logic
-  res.status(200).json({ message: 'OTP verified successfully' });
+  const { mobile, otp } = req.body;
+
+  if (otpStorage[mobile] && otpStorage[mobile] == otp) {
+    delete otpStorage[mobile]; // Remove OTP after successful verification
+    return res.status(200).json({ message: 'OTP verified successfully' });
+  }
+  res.status(400).json({ error: 'Invalid OTP' });
 });
 
-module.exports = router; // Export the router
+module.exports = router;

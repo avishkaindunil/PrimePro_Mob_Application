@@ -22,9 +22,8 @@ export default function LoginScreen() {
 
   const onPressRegister = () => {
     // Navigating to the Signup screen
-    navigation.navigate('Signup');
+    navigation.navigate('Signup'); // Navigate to the Signup screen
   };
-  
 
   return (
     <View style={{ flex: 1, backgroundColor: '#e7ecff' }}>
@@ -73,7 +72,6 @@ export default function LoginScreen() {
           <TouchableOpacity style={styles.registerButton} onPress={onPressRegister}>
             <Text style={styles.registerTextOne}>Register</Text>
           </TouchableOpacity>
-
         </View>
       </View>
     </View>
