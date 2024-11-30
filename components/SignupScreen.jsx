@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'; // Import Alert here
+import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; // Import the hook
 import { Colors } from './../constants/Colors';
 
-export default function SignupScreen({ navigation }) {
+export default function SignupScreen() {
+  const navigation = useNavigation(); // Use the hook to get navigation
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -14,13 +17,6 @@ export default function SignupScreen({ navigation }) {
   const [userOtp, setUserOtp] = useState(''); // Store OTP entered by user
   const [showOtpScreen, setShowOtpScreen] = useState(false);
   const [userId, setUserId] = useState(null); // To store userId for OTP validation
-
-  // useEffect to log when showOtpScreen state changes
-  useEffect(() => {
-    if (showOtpScreen) {
-      console.log('OTP Screen State Changed:', showOtpScreen);
-    }
-  }, [showOtpScreen]); // Dependency array makes it trigger when showOtpScreen changes
 
   const handleRegister = async () => {
     try {
@@ -49,28 +45,25 @@ export default function SignupScreen({ navigation }) {
   
 
   const handleVerifyOtp = () => {
-    // Trim the OTP values and log them to debug
-    const trimmedOtp = userOtp?.trim();
-    const trimmedServerOtp = otp?.trim();
+    const trimmedOtp = otp?.toString().trim(); // Convert otp to string before trimming
+    const trimmedUserOtp = userOtp?.toString().trim(); // Convert userOtp to string before trimming
+
+    console.log("User OTP: ", trimmedUserOtp); // Log user OTP
+    console.log("Server OTP: ", trimmedOtp); // Log server OTP
   
-    console.log("User OTP: ", trimmedOtp); // Log user OTP
-    console.log("Server OTP: ", trimmedServerOtp); // Log server OTP
-  
-    if (!trimmedOtp || !trimmedServerOtp) {
+    if (!trimmedUserOtp || !trimmedOtp) {
       Alert.alert("Error", "Please enter and verify OTP correctly.");
       return;
     }
   
-    if (trimmedOtp === trimmedServerOtp) {
+    if (trimmedUserOtp === trimmedOtp) {
       console.log("OTP matched!");
-      // Navigate to the tabs screen after a match
-      navigation.navigate('Tabs'); // Ensure this is the correct screen name in your navigation structure
+      navigation.navigate('Tabs'); // This should work now if navigation is correctly passed
     } else {
       console.log("OTP mismatch!");
       Alert.alert("Invalid OTP.");
     }
   };
-  
 
   return (
     <View style={{ flex: 1, backgroundColor: '#e7ecff' }}>
@@ -148,47 +141,33 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 16,
-    fontFamily: 'mulish-medium',
-    color: '#6c757d',
-    textAlign: 'center',
-    paddingHorizontal: 20,
-    marginTop: 8,
+    fontFamily: 'mulish-semibold',
+    color: '#8F8E8E',
   },
   container: {
-    backgroundColor: 'white',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    padding: 20,
-    flex: 1,
-    justifyContent: 'center',
+    padding: 16,
   },
   input: {
-    fontFamily: 'mulish-medium',
-    backgroundColor: '#f1f1f1',
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 15,
-    fontSize: 16,
-    borderColor: '#ddd',
-    borderWidth: 1,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    height: 50,
+    paddingLeft: 12,
+    marginVertical: 8,
   },
   btn: {
     backgroundColor: Colors.PRIMARY,
-    padding: 15,
-    borderRadius: 10,
+    paddingVertical: 14,
+    borderRadius: 8,
+    marginTop: 20,
     alignItems: 'center',
-    marginBottom: 20,
   },
   btnText: {
-    fontFamily: 'mulish-semibold',
     color: '#fff',
     fontSize: 18,
-    fontWeight: '600',
   },
   otpText: {
-    fontFamily: 'mulish-medium',
-    fontSize: 16,
-    marginBottom: 15,
+    fontSize: 18,
+    marginBottom: 20,
     textAlign: 'center',
   },
 });

@@ -4,22 +4,15 @@ import { Ionicons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Colors } from './../../constants/Colors';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SignupScreen from './../../components/SignupScreen';
 import OtpScreen from './../../components/OtpScreen';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 
 export default function TabLayout() {
   return (
-    <Stack.Navigator initialRouteName="Tabs">
-      {/* Main Tabs */}
-      <Stack.Screen
-        name="Tabs"
-        component={TabsComponent}
-        options={{ headerShown: false }}
-      />
-
+    <Stack.Navigator initialRouteName="Signup">
       {/* Signup Screen */}
       <Stack.Screen
         name="Signup"
@@ -32,6 +25,13 @@ export default function TabLayout() {
         name="Otp"
         component={OtpScreen}
         options={{ title: 'Enter OTP' }}
+      />
+
+      {/* Main Tabs */}
+      <Stack.Screen
+        name="Tabs"
+        component={TabsComponent}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

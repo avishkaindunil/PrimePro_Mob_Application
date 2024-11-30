@@ -1,9 +1,6 @@
 import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
-import { Text, View } from "react-native";
-import LoginScreen from './../components/LoginScreen';
-import SignupScreen from './../components/SignupScreen';
 import * as SecureStore from "expo-secure-store";
 
 const tokenCache = {
@@ -24,29 +21,26 @@ const tokenCache = {
 };
 
 export default function RootLayout() {
-  useFonts({
+  const [fontsLoaded] = useFonts({
     'mulish': require('./../assets/fonts/Mulish-Regular.ttf'),
     'mulish-medium': require('./../assets/fonts/Mulish-Medium.ttf'),
     'mulish-semibold': require('./../assets/fonts/Mulish-SemiBold.ttf'),
     'mulish-bold': require('./../assets/fonts/Mulish-Bold.ttf'),
-    'mulish-black': require('./../assets/fonts/Mulish-Black.ttf')
+    'mulish-black': require('./../assets/fonts/Mulish-Black.ttf'),
   });
 
+  if (!fontsLoaded) return null;
+
   return (
-    <ClerkProvider tokenCache={tokenCache} publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY}>
+    <ClerkProvider
+      tokenCache={tokenCache}
+      publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY}
+    >
       <SignedIn>
-        {/* <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(tabs)" />
-        </Stack> */}
+        <Stack screenOptions={{ headerShown: false }} />
       </SignedIn>
       <SignedOut>
-        {/* <SignupScreen /> */}
-        {/* <LoginScreen /> */}
-        <Stack screenOptions={{
-            headerShown:false
-          }}>
-          <Stack.Screen name="(tabs)" />
-         </Stack> 
+        <Stack screenOptions={{ headerShown: false }} />
       </SignedOut>
     </ClerkProvider>
   );
