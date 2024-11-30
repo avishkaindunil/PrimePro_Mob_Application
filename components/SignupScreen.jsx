@@ -1,69 +1,71 @@
-import React, { useState, useEffect } from 'react';
-import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // Import the hook
+import React, { useState } from 'react';
+import { View, TextInput, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Colors } from './../constants/Colors';
 
 export default function SignupScreen() {
-  const navigation = useNavigation(); // Use the hook to get navigation
+  const navigation = useNavigation();
 
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
     mobile: '',
+    password: '',
+    confirmPassword: '',
   });
 
-  const [otp, setOtp] = useState(''); // Store OTP from server
-  const [userOtp, setUserOtp] = useState(''); // Store OTP entered by user
+  const [otp, setOtp] = useState('');
+  const [userOtp, setUserOtp] = useState('');
   const [showOtpScreen, setShowOtpScreen] = useState(false);
-  const [userId, setUserId] = useState(null); // To store userId for OTP validation
+  const [userId, setUserId] = useState(null);
 
   const handleRegister = async () => {
+    const { firstName, lastName, email, mobile, password, confirmPassword } = formData;
+  
+    if (!firstName || !lastName || !email || !mobile || !password || !confirmPassword) {
+      Alert.alert('Error', 'All fields are required!');
+      return;
+    }
+    if (password !== confirmPassword) {
+      Alert.alert('Error', 'Passwords do not match!');
+      return;
+    }
+  
     try {
       const response = await fetch('http://192.168.103.251:5000/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ firstName, lastName, email, mobile, password }),
       });
   
       const data = await response.json();
   
       if (response.ok) {
-        console.log('Registration Successful:', data);
-        setOtp(data.otp); // Ensure that this OTP exists in the response
-        setUserId(data.userId); // Save userId for OTP validation
-        setShowOtpScreen(true); // Show OTP input screen
+        if (data.otp) {
+          setOtp(data.otp.toString()); // Ensure `otp` is treated as a string
+          setUserId(data.userId);
+          setShowOtpScreen(true);
+        } else {
+          Alert.alert('Error', 'No OTP received from the server.');
+        }
       } else {
-        console.error('Server Error:', data.error);
-        alert(data.error || 'Something went wrong. Please try again later.');
+        Alert.alert('Error', data.error || 'Registration failed');
       }
     } catch (error) {
-      console.error('Network or Code Error:', error.message);
-      alert('Something went wrong. Please try again later.');
+      Alert.alert('Error', 'Something went wrong. Please try again later.');
     }
   };
   
-
   const handleVerifyOtp = () => {
-    const trimmedOtp = otp?.toString().trim(); // Convert otp to string before trimming
-    const trimmedUserOtp = userOtp?.toString().trim(); // Convert userOtp to string before trimming
-
-    console.log("User OTP: ", trimmedUserOtp); // Log user OTP
-    console.log("Server OTP: ", trimmedOtp); // Log server OTP
-  
-    if (!trimmedUserOtp || !trimmedOtp) {
-      Alert.alert("Error", "Please enter and verify OTP correctly.");
-      return;
-    }
-  
-    if (trimmedUserOtp === trimmedOtp) {
-      console.log("OTP matched!");
-      navigation.navigate('Tabs'); // This should work now if navigation is correctly passed
+    if (otp && userOtp.trim() === otp.trim()) {
+      Alert.alert('Success', 'OTP verified successfully!');
+      navigation.navigate('Login'); // Navigate to the Login screen
     } else {
-      console.log("OTP mismatch!");
-      Alert.alert("Invalid OTP.");
+      Alert.alert('Error', 'Invalid OTP.');
     }
   };
+  
 
   return (
     <View style={{ flex: 1, backgroundColor: '#e7ecff' }}>
@@ -101,14 +103,27 @@ export default function SignupScreen() {
               style={styles.input}
               keyboardType="phone-pad"
             />
-
+            <TextInput
+              placeholder="Password"
+              value={formData.password}
+              onChangeText={(text) => setFormData({ ...formData, password: text })}
+              style={styles.input}
+              secureTextEntry
+            />
+            <TextInput
+              placeholder="Confirm Password"
+              value={formData.confirmPassword}
+              onChangeText={(text) => setFormData({ ...formData, confirmPassword: text })}
+              style={styles.input}
+              secureTextEntry
+            />
             <TouchableOpacity style={styles.btn} onPress={handleRegister}>
               <Text style={styles.btnText}>Register</Text>
             </TouchableOpacity>
           </>
         ) : (
           <View>
-            <Text style={styles.otpText}>Enter OTP sent to your mobile: {otp}</Text>
+            <Text style={styles.otpText}>Enter OTP sent to your mobile:</Text>
             <TextInput
               placeholder="OTP"
               value={userOtp}

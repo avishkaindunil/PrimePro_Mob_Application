@@ -1,47 +1,23 @@
-import { Stack } from "expo-router";
-import { useFonts } from "expo-font";
-import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
-import * as SecureStore from "expo-secure-store";
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import LoginScreen from '../components/LoginScreen';   // Ensure correct import path
+import OtpScreen from '../components/OtpScreen';       // Ensure correct import path
+import SignupScreen from '../components/SignupScreen'; // Ensure correct import path
 
-const tokenCache = {
-  async getToken(key) {
-    try {
-      return SecureStore.getItemAsync(key);
-    } catch (err) {
-      return null;
-    }
-  },
-  async saveToken(key, value) {
-    try {
-      return SecureStore.setItemAsync(key, value);
-    } catch (err) {
-      return;
-    }
-  },
-};
+const Stack = createStackNavigator();
 
-export default function RootLayout() {
-  const [fontsLoaded] = useFonts({
-    'mulish': require('./../assets/fonts/Mulish-Regular.ttf'),
-    'mulish-medium': require('./../assets/fonts/Mulish-Medium.ttf'),
-    'mulish-semibold': require('./../assets/fonts/Mulish-SemiBold.ttf'),
-    'mulish-bold': require('./../assets/fonts/Mulish-Bold.ttf'),
-    'mulish-black': require('./../assets/fonts/Mulish-Black.ttf'),
-  });
-
-  if (!fontsLoaded) return null;
-
+function App() {
   return (
-    <ClerkProvider
-      tokenCache={tokenCache}
-      publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY}
-    >
-      <SignedIn>
-        <Stack screenOptions={{ headerShown: false }} />
-      </SignedIn>
-      <SignedOut>
-        <Stack screenOptions={{ headerShown: false }} />
-      </SignedOut>
-    </ClerkProvider>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        {/* Stack Screens should be passed the component prop */}
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Otp" component={OtpScreen} />
+        <Stack.Screen name="Signup" component={SignupScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
+
+export default App;

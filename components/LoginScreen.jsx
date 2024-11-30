@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import { Colors } from './../constants/Colors';
 import * as WebBrowser from "expo-web-browser";
 import { useWarmUpBrowser } from './../hooks/UseWarmUpBrowser';
-import { useNavigation } from '@react-navigation/native';  // Add this import
+import { useNavigation } from '@react-navigation/native';
 
 export default function LoginScreen() {
   useWarmUpBrowser();
-  const navigation = useNavigation();  // Initialize the navigation hook
-  
+  const navigation = useNavigation();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -21,8 +21,7 @@ export default function LoginScreen() {
   };
 
   const onPressRegister = () => {
-    // Navigating to the Signup screen
-    navigation.navigate('Signup'); // Navigate to the Signup screen
+    navigation.navigate('Signup'); // Navigate to Signup screen
   };
 
   return (
@@ -65,10 +64,8 @@ export default function LoginScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Add the Register button */}
         <View style={styles.registerContainer}>
           <Text style={styles.registerText}>Don’t have an account?</Text>
-          {/* Add the onPress method for navigation to SignupScreen */}
           <TouchableOpacity style={styles.registerButton} onPress={onPressRegister}>
             <Text style={styles.registerTextOne}>Register</Text>
           </TouchableOpacity>
