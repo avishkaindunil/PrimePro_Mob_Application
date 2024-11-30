@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'; // Import Alert here
 import { Colors } from './../constants/Colors';
 
 export default function SignupScreen({ navigation }) {
@@ -10,10 +10,17 @@ export default function SignupScreen({ navigation }) {
     mobile: '',
   });
 
-  const [otp, setOtp] = useState('');
-  const [userOtp, setUserOtp] = useState(''); // To store OTP entered by user
+  const [otp, setOtp] = useState(''); // Store OTP from server
+  const [userOtp, setUserOtp] = useState(''); // Store OTP entered by user
   const [showOtpScreen, setShowOtpScreen] = useState(false);
-  const [userId, setUserId] = useState(null); // To store the userId for verification
+  const [userId, setUserId] = useState(null); // To store userId for OTP validation
+
+  // useEffect to log when showOtpScreen state changes
+  useEffect(() => {
+    if (showOtpScreen) {
+      console.log('OTP Screen State Changed:', showOtpScreen);
+    }
+  }, [showOtpScreen]); // Dependency array makes it trigger when showOtpScreen changes
 
   const handleRegister = async () => {
     try {
@@ -22,28 +29,48 @@ export default function SignupScreen({ navigation }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-      
+  
       const data = await response.json();
+  
       if (response.ok) {
-        setOtp(data.otp); // Set OTP from server response
+        console.log('Registration Successful:', data);
+        setOtp(data.otp); // Ensure that this OTP exists in the response
         setUserId(data.userId); // Save userId for OTP validation
         setShowOtpScreen(true); // Show OTP input screen
       } else {
-        console.error(data.error);
+        console.error('Server Error:', data.error);
+        alert(data.error || 'Something went wrong. Please try again later.');
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Network or Code Error:', error.message);
+      alert('Something went wrong. Please try again later.');
     }
   };
+  
 
-  const handleVerifyOtp = async () => {
-    if (userOtp === otp) {
-      // OTP matched, navigate to Home
-      navigation.navigate('Home');
+  const handleVerifyOtp = () => {
+    // Trim the OTP values and log them to debug
+    const trimmedOtp = userOtp?.trim();
+    const trimmedServerOtp = otp?.trim();
+  
+    console.log("User OTP: ", trimmedOtp); // Log user OTP
+    console.log("Server OTP: ", trimmedServerOtp); // Log server OTP
+  
+    if (!trimmedOtp || !trimmedServerOtp) {
+      Alert.alert("Error", "Please enter and verify OTP correctly.");
+      return;
+    }
+  
+    if (trimmedOtp === trimmedServerOtp) {
+      console.log("OTP matched!");
+      // Navigate to the tabs screen after a match
+      navigation.navigate('Tabs'); // Ensure this is the correct screen name in your navigation structure
     } else {
-      alert('Invalid OTP');
+      console.log("OTP mismatch!");
+      Alert.alert("Invalid OTP.");
     }
   };
+  
 
   return (
     <View style={{ flex: 1, backgroundColor: '#e7ecff' }}>
