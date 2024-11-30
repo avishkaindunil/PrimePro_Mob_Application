@@ -7,10 +7,13 @@ import { Colors } from './../../constants/Colors';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SignupScreen from './../../components/SignupScreen';
 import OtpScreen from './../../components/OtpScreen';
+import { useRouter } from 'expo-router';
 
 const Stack = createNativeStackNavigator();
 
 export default function TabLayout() {
+  const router = useRouter(); // Initialize the router
+
   return (
     <Stack.Navigator initialRouteName="Signup">
       {/* Signup Screen */}
@@ -38,6 +41,18 @@ export default function TabLayout() {
 }
 
 function TabsComponent() {
+  const router = useRouter();
+
+  // Example of navigating to Login screen after OTP verification
+  const handleVerifyOtp = () => {
+    if (otp && userOtp.trim() === otp.trim()) {
+      alert('OTP Verified');
+      router.push('/Login');  // Navigate to Login
+    } else {
+      alert('Invalid OTP');
+    }
+  };
+
   return (
     <Tabs
       screenOptions={{

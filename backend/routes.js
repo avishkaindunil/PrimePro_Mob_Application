@@ -32,8 +32,8 @@ router.post('/register', async (req, res) => {
 
     // Send OTP via Notify.lk API
     await axios.post('https://app.notify.lk/api/v1/send', {
-      user_id: '28553', // Replace with actual user ID
-      api_key: 'a3uHESfhYqlVpTgDKeXc', // Replace with actual API key
+      user_id: '28554', // Replace with actual user ID
+      api_key: 'y2lNNjF5UTL933W6oqUs', // Replace with actual API key
       sender_id: 'NotifyDEMO', // Replace with actual sender ID
       to: mobile,
       message: `Your OTP code is ${otp}. Please do not share this code with anyone.`,
