@@ -1,19 +1,39 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native';
 import React, { useState } from 'react';
 import { Colors } from './../constants/Colors';
-import * as WebBrowser from "expo-web-browser";
-import { useWarmUpBrowser } from './../hooks/UseWarmUpBrowser';
 import { useNavigation } from '@react-navigation/native';
 
 export default function LoginScreen() {
-  useWarmUpBrowser();
   const navigation = useNavigation();
 
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const onPressLogin = () => {
-    console.log(`Login with Username: ${username} and Password: ${password}`);
+  const onPressLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Error', 'Both fields are required!');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://192.168.103.251:5000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        Alert.alert('Success', 'Login successful!');
+        // Navigate to the Tabs screen after successful login
+        navigation.navigate('Tabs');
+      } else {
+        Alert.alert('Error', data.error || 'Login failed');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Something went wrong. Please try again later.');
+    }
   };
 
   const onPressGoogle = async () => {
@@ -39,9 +59,9 @@ export default function LoginScreen() {
         </Text>
 
         <TextInput
-          placeholder="Username"
-          value={username}
-          onChangeText={setUsername}
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
           style={styles.input}
         />
         <TextInput
@@ -177,3 +197,5 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
 });
+ 
+

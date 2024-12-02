@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const routes = require('./routes');
-const pool = require('./db');
+const pool = require('./db'); // Make sure this points to your correct DB connection
 const cors = require('cors');
 
 pool.connect()

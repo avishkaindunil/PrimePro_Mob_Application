@@ -8,7 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SignupScreen from './../../components/SignupScreen';
 import OtpScreen from './../../components/OtpScreen';
 import { useRouter } from 'expo-router';
-
+// import LoginScreen from '../../components/LoginScreen';
 const Stack = createNativeStackNavigator();
 
 export default function TabLayout() {
@@ -29,6 +29,12 @@ export default function TabLayout() {
         component={OtpScreen}
         options={{ title: 'Enter OTP' }}
       />
+
+      {/* <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ title: 'Login' }}
+      /> */}
 
       {/* Main Tabs */}
       <Stack.Screen
@@ -106,4 +112,4 @@ function TabsComponent() {
       />
     </Tabs>
   );
-}
+} 
