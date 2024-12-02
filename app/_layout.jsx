@@ -5,6 +5,7 @@ import LoginScreen from './../components/LoginScreen';
 import OtpScreen from './../components/OtpScreen';
 import SignupScreen from './../components/SignupScreen';
 import TabLayout from './(tabs)/_layout'; // Main tab layout
+import NearestCenter from './../components/NearestService';
 
 const Stack = createStackNavigator();
 
@@ -30,6 +31,11 @@ export default function RootLayout() {
         <Stack.Screen
           name="MainTabs"
           component={TabLayout}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="NearestService"
+          component={NearestCenter}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

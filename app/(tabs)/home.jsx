@@ -4,8 +4,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Colors } from './../../constants/Colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Home() {
+  
+  const navigation = useNavigation();
   const [firstName, setFirstName] = useState('');
   const [greeting, setGreeting] = useState('');
 
@@ -49,22 +52,47 @@ export default function Home() {
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
         <Text style={styles.hi}>Hi 👋</Text>
-        <Text style={styles.homes}>{greeting}, {firstName}</Text>
+        <Text style={styles.homes}>{greeting}, {firstName} 😀</Text>
       </View>
-      <View style={styles.contentContainer}>
-        <View style={styles.itemContainer}>
-          <Image source={require('./../../assets/images/car-small.png')} style={styles.image} />
-          <Text style={styles.wash}>Wash Car</Text>
+      <View style={styles.mainContentContainer}>
+        <View style={styles.contentContainermainone}>
+        <TouchableOpacity onPress={() => navigation.navigate('NearestService')}>
+          <View style={styles.itemContainer}>
+            <Image source={require('./../../assets/images/carwash.gif')} style={styles.image} />
+            <Text style={styles.wash}>Wash Car</Text>
+          </View>
+        </TouchableOpacity>
+          <View style={styles.itemContainer}>
+            <Image source={require('./../../assets/images/caroil.gif')} style={styles.image} />
+            <Text style={styles.wash}>Oil Change</Text>
+          </View>
+          <View style={styles.itemContainer}>
+            <Image source={require('./../../assets/images/tyre.gif')} style={styles.image} />
+            <Text style={styles.wash}>Tire Cleaning</Text>
+          </View>
         </View>
-        <View style={styles.itemContainer}>
-          <Image source={require('./../../assets/images/service.png')} style={styles.imageServices} />
-          <Text style={styles.wash}>Services</Text>
+        <View style={styles.contentContainermaintwo}>
+          <View style={styles.itemContainer}>
+            <Image source={require('./../../assets/images/fullbattery.gif')} style={styles.image} />
+            <Text style={styles.wash}>Battery Rep.</Text>
+          </View>
+          <View style={styles.itemContainer}>
+            <Image source={require('./../../assets/images/engine.gif')} style={styles.image} />
+            <Text style={styles.wash}>Engine Rep.</Text>
+          </View>
+          <View style={styles.itemContainer}>
+            <Image source={require('./../../assets/images/chassis.gif')} style={styles.image} />
+            <Text style={styles.wash}>Chassis Rep.</Text>
+          </View>
         </View>
-        <View style={styles.itemContainer}>
-          <Image source={require('./../../assets/images/qrcode.png')} style={styles.imageQr} />
-          <Text style={styles.wash}>Scan 'N' Go</Text>
+        <View style={styles.contentContainermainthree}>
+          <View style={styles.itemContainer}>
+            <Image source={require('./../../assets/images/ac.gif')} style={styles.image} />
+            <Text style={styles.wash}>Air Filter Rep.</Text>
+          </View>
         </View>
       </View>
+      
       <View style={styles.contentContainerTwo}>
         <Text style={styles.find}>Where is the nearest service center?</Text>
         <TextInput
@@ -177,7 +205,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.PRIMARY,
     padding: 12,
   },
-  contentContainer: {
+  mainContentContainer:{
+    
+  },
+  contentContainermainone: {
     backgroundColor: '#fff',
     marginTop: -20,
     borderTopLeftRadius: 30,
@@ -189,14 +220,41 @@ const styles = StyleSheet.create({
     padding: 12,
     paddingTop: 20,
   },
+  contentContainermaintwo:{
+    backgroundColor: '#fff',
+    marginTop: -30,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    display: 'flex',
+    flexDirection: 'row', // Align items in a row
+    justifyContent: 'space-around', // Distribute space evenly
+    gap: 7,
+    padding: 12,
+  },
+  contentContainermainthree:{
+    backgroundColor: '#fff',
+    marginTop: -30,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    padding:12,
+  },
   itemContainer: {
     alignItems: 'center',
     marginBottom: 20,
+    height:115,
+    width:115,
+    borderColor:Colors.PRIMARY,
+    borderWidth:2,
+    borderRadius:10,
+    padding:15,
   },
   image: {
     backgroundColor: '#f7f7f7',
-    width: 101,
-    height: 70,
+    width: 72,
+    height: 50,
     borderRadius: 20,
   },
   imageServices: {
@@ -213,9 +271,10 @@ const styles = StyleSheet.create({
   },
   wash: {
     fontFamily: 'mulish-semibold',
-    fontSize: 14,
-    marginTop: 10,
-    color: 'gray',
+    fontSize: 16,
+    marginTop: 15,
+    textAlign:'center',
+    color: Colors.PRIMARY,
   },
   contentContainerTwo: {
     marginTop: -30,
