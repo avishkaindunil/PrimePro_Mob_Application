@@ -2,6 +2,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput, Alert } fro
 import React, { useState } from 'react';
 import { Colors } from './../constants/Colors';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -26,13 +27,16 @@ export default function LoginScreen() {
       const data = await response.json();
 
       if (response.ok) {
+        console.log('Login Success:', data);
+        await AsyncStorage.setItem('userEmail', email); // Save email for use in Home screen
         Alert.alert('Success', 'Login successful!');
-        // Navigate to the Tabs screen after successful login
-        navigation.navigate('MainTabs'); // <-- This ensures navigation to the MainTabs screen
+        navigation.navigate('MainTabs');
       } else {
+        console.log('Login Failed:', data);
         Alert.alert('Error', data.error || 'Login failed');
       }
     } catch (error) {
+      console.error('Error during login:', error);
       Alert.alert('Error', 'Something went wrong. Please try again later.');
     }
   };
@@ -49,13 +53,11 @@ export default function LoginScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#e7ecff' }}>
-      {/* Header Section */}
       <View style={styles.header}>
         <Text style={styles.title}>Welcome to</Text>
         <Image source={require('./../assets/images/Transparent.png')} style={styles.logo} />
       </View>
 
-      {/* Main Content Section */}
       <View style={styles.container}>
         <Text style={styles.subtitle}>
           Your <Text style={{ color: Colors.PRIMARY }}>Trusted Partner</Text> in Car Care
@@ -65,7 +67,6 @@ export default function LoginScreen() {
           Find, book, and manage with ease.
         </Text>
 
-        {/* Email Input */}
         <TextInput
           placeholder="Email"
           value={email}
@@ -73,7 +74,6 @@ export default function LoginScreen() {
           style={styles.input}
         />
 
-        {/* Password Input */}
         <TextInput
           placeholder="Password"
           value={password}
@@ -82,12 +82,10 @@ export default function LoginScreen() {
           style={styles.input}
         />
 
-        {/* Login Button */}
         <TouchableOpacity style={styles.btn} onPress={onPressLogin}>
           <Text style={styles.btnText}>Login</Text>
         </TouchableOpacity>
 
-        {/* Social Login Section */}
         <Text style={styles.socialText}>Or Login with</Text>
         <View style={styles.socialButtons}>
           <TouchableOpacity onPress={onPressGoogle} style={styles.iconButton}>
@@ -95,7 +93,6 @@ export default function LoginScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Register Section */}
         <View style={styles.registerContainer}>
           <Text style={styles.registerText}>Don’t have an account?</Text>
           <TouchableOpacity style={styles.registerButton} onPress={onPressRegister}>
@@ -196,4 +193,4 @@ const styles = StyleSheet.create({
   registerButton: {
     marginLeft: 5,
   },
-});
+}); 
