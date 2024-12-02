@@ -1,30 +1,67 @@
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native';
-import React from 'react';
-import { Colors } from './../../constants/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { Colors } from './../../constants/Colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 export default function Home() {
+  const [firstName, setFirstName] = useState('');
+  const [greeting, setGreeting] = useState('');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const email = await AsyncStorage.getItem('userEmail');
+        console.log('Fetched Email:', email);
+        if (email) {
+          const response = await axios.post('http://192.168.103.251:5000/api/getUser', { email });
+          console.log('User Data:', response.data);
+          if (response.data && response.data.firstName) {
+            setFirstName(response.data.firstName);
+          } else {
+            console.error('First name not found');
+          }
+        } else {
+          console.error('No email found in AsyncStorage');
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    const getGreeting = () => {
+      const hour = new Date().getHours();
+      if (hour < 12) {
+        return 'Good Morning';
+      } else if (hour < 18) {
+        return 'Good Afternoon';
+      } else {
+        return 'Good Evening';
+      }
+    };
+
+    setGreeting(getGreeting());
+    fetchUserData();
+  }, []);
+
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
         <Text style={styles.hi}>Hi 👋</Text>
-        <Text style={styles.homes}>Good Morning, Avishka Indunil</Text>
+        <Text style={styles.homes}>{greeting}, {firstName}</Text>
       </View>
       <View style={styles.contentContainer}>
         <View style={styles.itemContainer}>
-          <Image source={require('./../../assets/images/car-small.png')}
-            style={styles.image} />
+          <Image source={require('./../../assets/images/car-small.png')} style={styles.image} />
           <Text style={styles.wash}>Wash Car</Text>
         </View>
         <View style={styles.itemContainer}>
-          <Image source={require('./../../assets/images/service.png')}
-            style={styles.imageServices} />
+          <Image source={require('./../../assets/images/service.png')} style={styles.imageServices} />
           <Text style={styles.wash}>Services</Text>
         </View>
         <View style={styles.itemContainer}>
-          <Image source={require('./../../assets/images/qrcode.png')}
-            style={styles.imageQr} />
+          <Image source={require('./../../assets/images/qrcode.png')} style={styles.imageQr} />
           <Text style={styles.wash}>Scan 'N' Go</Text>
         </View>
       </View>
@@ -42,7 +79,6 @@ export default function Home() {
                 <Text style={{
                     fontSize: 18,
                     fontFamily: 'mulish-semibold'
-                
                 }}>University of Colombo</Text>
                 <Text style={{
                     fontSize: 12,
@@ -50,7 +86,6 @@ export default function Home() {
                     color: '#888',
                 }}>Cumaratunga Munidasa Mw Colombo 03. Sri Lanka</Text>
             </View>
-            
         </View>
         <View style={styles.contentContainerThreeSub}>
             <Image source={require('./../../assets/images/cover-image.jpg')}
@@ -110,7 +145,7 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
-scrollViewContent: {
+  scrollViewContent: {
     backgroundColor: '#fff',
     flexGrow: 1,
     justifyContent: 'center',
@@ -149,7 +184,6 @@ scrollViewContent: {
     borderTopRightRadius: 30,
     display: 'flex',
     flexDirection: 'row', // Align items in a row
-    // flexWrap: 'wrap', // Allow items to wrap to the next line
     justifyContent: 'space-around', // Distribute space evenly
     gap: 7,
     padding: 12,
@@ -165,42 +199,35 @@ scrollViewContent: {
     height: 70,
     borderRadius: 20,
   },
-  imageServices:{
+  imageServices: {
     backgroundColor: '#f7f7f7',
     width: 72,
-    height:72,
-    borderRadius:10,
+    height: 72,
+    borderRadius: 10,
   },
-  imageQr:{
+  imageQr: {
     backgroundColor: '#f7f7f7',
     width: 72,
-    height:72,
-    borderRadius:10,
+    height: 72,
+    borderRadius: 10,
   },
   wash: {
     fontFamily: 'mulish-semibold',
     fontSize: 14,
     marginTop: 10,
-    color:'gray',
+    color: 'gray',
   },
-  contentContainerTwo:{
+  contentContainerTwo: {
     marginTop: -30,
     backgroundColor: '#fff',
-    // display: 'flex',
-    // flexDirection: 'row', // Align items in a row
-    // // flexWrap: 'wrap', // Allow items to wrap to the next line
-    // justifyContent: 'space-around', // Distribute space evenly
-    // gap: 7,
     padding: 12,
     paddingTop: 20,
   },
-
-  find:{
+  find: {
     marginLeft: 12,
     fontSize: 20,
     fontFamily: 'mulish-bold',
   },
-
   input: {
     height: 54,
     borderColor: '#f7f7f7',
@@ -208,67 +235,51 @@ scrollViewContent: {
     borderRadius: 15,
     paddingHorizontal: 15,
     marginBottom: 20,
-    marginTop:20,
+    marginTop: 20,
     width: '93%', // Adjust the width as needed
     alignSelf: 'center',
     backgroundColor: '#f7f7f7',
     fontFamily: 'mulish-semibold',
     fontSize: 20,
   },
-
-  contentContainerTwoSub:{
+  contentContainerTwoSub: {
     display: 'flex',
     flexDirection: 'row', // Align items in a row
-    // flexWrap: 'wrap', // Allow items to wrap to the next line
-    // justifyContent: 'space-around', // Distribute space evenly
     gap: 12,
     alignItems: 'center',
-    // alignSelf:'center'
     marginLeft: 15,
     marginRight: 15,
     paddingBottom: 10,
-    // borderBottomColor: '#ccc',
-    // borderBottomWidth: 1, 
   },
-
-  mapLocator:{
+  mapLocator: {
     width: 34,
     height: 34,
   },
-
-  contentContainerThreeSub:{
+  contentContainerThreeSub: {
     backgroundColor: '#f7f7f7',
     paddingTop: 15,
     borderRadius: 20,
     paddingBottom: 10,
   },
-
   coverImage: {
     width: 340,
     height: 200,
     borderRadius: 20,
-    // borderTopRightRadius: 20,
     alignSelf: 'center',
   },
-
   button: {
     borderRadius: 20,
-    overflow: 'hidden', // Ensure gradient does not overflow the button's border
-    margin: 10,
-    width: '100%',
-    alignItems:'center',
-    alignSelf: 'center',
+    overflow: 'hidden',
+    marginTop: 20,
   },
   gradient: {
-    paddingVertical: 10,
-    paddingHorizontal: 18,
-    borderRadius: 20,
+    paddingVertical: 15,
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonText: {
-    fontFamily: 'mulish-semibold',
-    fontSize: 18,
     color: '#fff',
+    fontFamily: 'mulish-semibold',
+    fontSize: 16,
   },
 });
