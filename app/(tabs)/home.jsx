@@ -270,8 +270,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   wash: {
-    fontFamily: 'mulish-semibold',
-    fontSize: 16,
+    fontFamily: 'mulish-bold',
+    fontSize: 14,
     marginTop: 15,
     textAlign:'center',
     color: Colors.PRIMARY,

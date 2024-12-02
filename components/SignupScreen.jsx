@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useFonts } from "expo-font";
 import { View, TextInput, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Colors } from './../constants/Colors';
@@ -66,6 +67,13 @@ export default function SignupScreen() {
     }
   };
   
+  useFonts({
+    'mulish':require('./../assets/fonts/Mulish-Regular.ttf'),
+    'mulish-medium':require('./../assets/fonts/Mulish-Medium.ttf'),
+    'mulish-semibold':require('./../assets/fonts/Mulish-SemiBold.ttf'),
+    'mulish-bold':require('./../assets/fonts/Mulish-Bold.ttf'),
+    'mulish-black':require('./../assets/fonts/Mulish-Black.ttf')
+  })
 
   return (
     <View style={{ flex: 1, backgroundColor: '#e7ecff' }}>
@@ -164,6 +172,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: '#fff',
+    fontFamily: 'mulish-semibold',
     borderRadius: 8,
     height: 50,
     paddingLeft: 12,
@@ -177,6 +186,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   btnText: {
+    fontFamily: 'mulish-semibold',
     color: '#fff',
     fontSize: 18,
   },
