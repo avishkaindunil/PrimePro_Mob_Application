@@ -9,6 +9,7 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // Function to handle login
   const onPressLogin = async () => {
     if (!email || !password) {
       Alert.alert('Error', 'Both fields are required!');
@@ -27,7 +28,7 @@ export default function LoginScreen() {
       if (response.ok) {
         Alert.alert('Success', 'Login successful!');
         // Navigate to the Tabs screen after successful login
-        navigation.navigate('Tabs');
+        navigation.navigate('MainTabs'); // <-- This ensures navigation to the MainTabs screen
       } else {
         Alert.alert('Error', data.error || 'Login failed');
       }
@@ -36,34 +37,43 @@ export default function LoginScreen() {
     }
   };
 
+  // Function to handle Google login (not implemented yet)
   const onPressGoogle = async () => {
-    // Google OAuth logic
+    Alert.alert('Info', 'Google login feature is under development.');
   };
 
+  // Function to navigate to the signup screen
   const onPressRegister = () => {
-    navigation.navigate('Signup'); // Navigate to Signup screen
+    navigation.navigate('Signup');
   };
 
   return (
     <View style={{ flex: 1, backgroundColor: '#e7ecff' }}>
+      {/* Header Section */}
       <View style={styles.header}>
         <Text style={styles.title}>Welcome to</Text>
         <Image source={require('./../assets/images/Transparent.png')} style={styles.logo} />
       </View>
 
+      {/* Main Content Section */}
       <View style={styles.container}>
-        <Text style={styles.subtitle}>Your <Text style={{ color: Colors.PRIMARY }}>Trusted Partner</Text> in Car Care</Text>
+        <Text style={styles.subtitle}>
+          Your <Text style={{ color: Colors.PRIMARY }}>Trusted Partner</Text> in Car Care
+        </Text>
         <Text style={styles.description}>
           PrimePro connects you with top car wash and vehicle services. {'\n'}
           Find, book, and manage with ease.
         </Text>
 
+        {/* Email Input */}
         <TextInput
           placeholder="Email"
           value={email}
           onChangeText={setEmail}
           style={styles.input}
         />
+
+        {/* Password Input */}
         <TextInput
           placeholder="Password"
           value={password}
@@ -72,18 +82,20 @@ export default function LoginScreen() {
           style={styles.input}
         />
 
+        {/* Login Button */}
         <TouchableOpacity style={styles.btn} onPress={onPressLogin}>
           <Text style={styles.btnText}>Login</Text>
         </TouchableOpacity>
 
+        {/* Social Login Section */}
         <Text style={styles.socialText}>Or Login with</Text>
-
         <View style={styles.socialButtons}>
           <TouchableOpacity onPress={onPressGoogle} style={styles.iconButton}>
             {/* Add Google OAuth logic */}
           </TouchableOpacity>
         </View>
 
+        {/* Register Section */}
         <View style={styles.registerContainer}>
           <Text style={styles.registerText}>Don’t have an account?</Text>
           <TouchableOpacity style={styles.registerButton} onPress={onPressRegister}>
@@ -120,21 +132,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   subtitle: {
-    fontFamily:'mulish-semibold',
+    fontFamily: 'mulish-semibold',
     fontSize: 26,
     fontWeight: '600',
     textAlign: 'center',
     marginBottom: 10,
   },
   description: {
-    fontFamily:'mulish-medium',
+    fontFamily: 'mulish-medium',
     fontSize: 12,
     textAlign: 'center',
     marginBottom: 20,
     color: '#6c757d',
   },
   input: {
-    fontFamily:'mulish-medium',
+    fontFamily: 'mulish-medium',
     backgroundColor: '#f1f1f1',
     borderRadius: 10,
     padding: 15,
@@ -149,13 +161,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   btnText: {
-    fontFamily:'mulish-semibold',
+    fontFamily: 'mulish-semibold',
     color: '#fff',
     fontSize: 18,
     fontWeight: '600',
   },
   socialText: {
-    fontFamily:'mulish-medium',
+    fontFamily: 'mulish-medium',
     textAlign: 'center',
     fontSize: 16,
     marginBottom: 10,
@@ -167,23 +179,14 @@ const styles = StyleSheet.create({
   iconButton: {
     marginHorizontal: 15,
   },
-  madeInLK: {
-    marginTop: 20,
-    marginLeft: 20,
-    fontFamily: 'mulish-medium',
-    fontSize: 14,
-  },
-  appVersion: {
-    marginLeft: 12,
-    marginTop: 20,
-    fontFamily: 'mulish-medium',
-    fontSize: 14,
-    color: '#888',
-  },
   registerContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 20,
+  },
+  registerText: {
+    fontSize: 16,
+    fontFamily: 'mulish-medium',
   },
   registerTextOne: {
     fontSize: 16,
@@ -191,11 +194,6 @@ const styles = StyleSheet.create({
     color: Colors.PRIMARY,
   },
   registerButton: {
-    fontSize: 16,
-    fontFamily: 'mulish-semibold',
-    color: Colors.PRIMARY,
     marginLeft: 5,
   },
 });
- 
-

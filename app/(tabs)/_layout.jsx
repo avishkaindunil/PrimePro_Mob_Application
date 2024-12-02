@@ -1,73 +1,27 @@
-import { Tabs } from 'expo-router';
 import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Colors } from './../../constants/Colors';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SignupScreen from './../../components/SignupScreen';
-import OtpScreen from './../../components/OtpScreen';
-import { useRouter } from 'expo-router';
-// import LoginScreen from '../../components/LoginScreen';
-const Stack = createNativeStackNavigator();
+import HomeScreen from './home'; // Import individual screens
+import ActivitiesScreen from './activities';
+import NotificationsScreen from './notifications';
+import ProfileScreen from './profile';
+
+const Tab = createBottomTabNavigator();
 
 export default function TabLayout() {
-  const router = useRouter(); // Initialize the router
-
   return (
-    <Stack.Navigator initialRouteName="Signup">
-      {/* Signup Screen */}
-      <Stack.Screen
-        name="Signup"
-        component={SignupScreen}
-        options={{ title: 'Sign Up' }}
-      />
-
-      {/* OTP Screen */}
-      <Stack.Screen
-        name="Otp"
-        component={OtpScreen}
-        options={{ title: 'Enter OTP' }}
-      />
-
-      {/* <Stack.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{ title: 'Login' }}
-      /> */}
-
-      {/* Main Tabs */}
-      <Stack.Screen
-        name="Tabs"
-        component={TabsComponent}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-function TabsComponent() {
-  const router = useRouter();
-
-  // Example of navigating to Login screen after OTP verification
-  const handleVerifyOtp = () => {
-    if (otp && userOtp.trim() === otp.trim()) {
-      alert('OTP Verified');
-      router.push('/Login');  // Navigate to Login
-    } else {
-      alert('Invalid OTP');
-    }
-  };
-
-  return (
-    <Tabs
+    <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: Colors.PRIMARY,
       }}
     >
-      <Tabs.Screen
-        name="home"
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
@@ -75,8 +29,9 @@ function TabsComponent() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="activities"
+      <Tab.Screen
+        name="Activities"
+        component={ActivitiesScreen}
         options={{
           tabBarLabel: 'Activities',
           tabBarIcon: ({ color }) => (
@@ -84,8 +39,9 @@ function TabsComponent() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="notifications"
+      <Tab.Screen
+        name="Notifications"
+        component={NotificationsScreen}
         options={{
           tabBarLabel: 'Notifications',
           tabBarIcon: ({ color }) => (
@@ -93,8 +49,9 @@ function TabsComponent() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="profile"
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color }) => (
@@ -102,14 +59,9 @@ function TabsComponent() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="help-support"
-        options={{ title: 'Help & Support' }}
-      />
-      <Tabs.Screen
-        name="custom-ratings-feedback"
-        options={{ title: 'Custom Ratings & Feedback' }}
-      />
-    </Tabs>
+
+      
+      
+    </Tab.Navigator>
   );
-} 
+}
