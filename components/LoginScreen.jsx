@@ -1,4 +1,5 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { useFonts } from "expo-font";
 import React, { useState } from 'react';
 import { Colors } from './../constants/Colors';
 import { useNavigation } from '@react-navigation/native';
@@ -50,6 +51,14 @@ export default function LoginScreen() {
   const onPressRegister = () => {
     navigation.navigate('Signup');
   };
+
+  useFonts({
+    'mulish':require('./../assets/fonts/Mulish-Regular.ttf'),
+    'mulish-medium':require('./../assets/fonts/Mulish-Medium.ttf'),
+    'mulish-semibold':require('./../assets/fonts/Mulish-SemiBold.ttf'),
+    'mulish-bold':require('./../assets/fonts/Mulish-Bold.ttf'),
+    'mulish-black':require('./../assets/fonts/Mulish-Black.ttf')
+  })
 
   return (
     <View style={{ flex: 1, backgroundColor: '#e7ecff' }}>
@@ -113,12 +122,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    fontWeight: '600',
-    fontFamily: 'mulish-semibold',
+    fontWeight: '500',
+    fontFamily: 'mulish-bold',
   },
   logo: {
-    width: 160,
-    height: 160,
+    marginTop: -25,
+    width: 200,
+    height: 200,
   },
   container: {
     backgroundColor: 'white',
@@ -131,7 +141,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontFamily: 'mulish-semibold',
     fontSize: 26,
-    fontWeight: '600',
+    fontWeight: '500',
     textAlign: 'center',
     marginBottom: 10,
   },
@@ -143,7 +153,7 @@ const styles = StyleSheet.create({
     color: '#6c757d',
   },
   input: {
-    fontFamily: 'mulish-medium',
+    fontFamily: 'mulish-semibold',
     backgroundColor: '#f1f1f1',
     borderRadius: 10,
     padding: 15,
@@ -158,13 +168,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   btnText: {
-    fontFamily: 'mulish-semibold',
+    fontFamily: 'mulish-bold',
     color: '#fff',
     fontSize: 18,
     fontWeight: '600',
   },
   socialText: {
-    fontFamily: 'mulish-medium',
+    fontFamily: 'mulish-semibold',
     textAlign: 'center',
     fontSize: 16,
     marginBottom: 10,
@@ -183,11 +193,11 @@ const styles = StyleSheet.create({
   },
   registerText: {
     fontSize: 16,
-    fontFamily: 'mulish-medium',
+    fontFamily: 'mulish-semibold',
   },
   registerTextOne: {
     fontSize: 16,
-    fontFamily: 'mulish-medium',
+    fontFamily: 'mulish-semibold',
     color: Colors.PRIMARY,
   },
   registerButton: {

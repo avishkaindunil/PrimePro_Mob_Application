@@ -1,4 +1,5 @@
 import React from 'react';
+import { useFonts } from "expo-font";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './../components/LoginScreen';
@@ -10,6 +11,13 @@ import NearestCenter from './../components/NearestService';
 const Stack = createStackNavigator();
 
 export default function RootLayout() {
+  useFonts({
+    'mulish':require('./../assets/fonts/Mulish-Regular.ttf'),
+    'mulish-medium':require('./../assets/fonts/Mulish-Medium.ttf'),
+    'mulish-semibold':require('./../assets/fonts/Mulish-SemiBold.ttf'),
+    'mulish-bold':require('./../assets/fonts/Mulish-Bold.ttf'),
+    'mulish-black':require('./../assets/fonts/Mulish-Black.ttf')
+  })
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
