@@ -21,7 +21,7 @@ export default function NearestService({ navigation }) {
         <View style={styles.stationsList}>
           {stations.map((station, index) => (
             <TouchableOpacity key={index} style={styles.stationItem}>
-              <Image source={require('./../assets/images/carwash.gif')} style={styles.image} />
+              <Image source={require('./../assets/images/AutoMiraj.png')} style={styles.image} />
               <Text style={styles.stationName}>{station}</Text>
             </TouchableOpacity>
           ))}
@@ -33,35 +33,48 @@ export default function NearestService({ navigation }) {
 
 const styles = StyleSheet.create({
   scrollViewContent: {
-    backgroundColor: '#fff',
+    backgroundColor: Colors.PRIMARY,
     flexGrow: 1,
     paddingBottom: 20,
+    paddingTop: 27,
   },
   container: {
-    padding: 20,
+    paddingTop: 30,
+    backgroundColor: Colors.PRIMARY,
+    
   },
   heading: {
     fontFamily: 'mulish-bold',
     fontSize: 24,
     marginBottom: 20,
-    color: Colors.PRIMARY,
+    color: '#fff',
     textAlign: 'center',
   },
   stationsList: {
-    marginTop: 10,
+    borderTopEndRadius:25,
+    borderTopLeftRadius: 25,
+    paddingTop: 20,
+    paddingLeft:10,
+    paddingRight:10,
+    paddingBottom: 5,
+    backgroundColor: '#fff',
+    borderBottomLeftRadius:25,
+    borderBottomRightRadius:25,
   },
   stationItem: {
     backgroundColor: '#f7f7f7',
     marginBottom: 15,
-    padding: 20,
-    borderRadius: 10,
+    padding: 15,
+    borderRadius: 15,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    gap: 18,
+    marginLeft:10,
+    marginRight:10,
   },
   stationName: {
     fontFamily: 'mulish-semibold',
-    fontSize: 16,
+    fontSize: 18,
     color: Colors.PRIMARY,
   },
   image: {
