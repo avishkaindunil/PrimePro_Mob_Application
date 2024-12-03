@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFonts } from "expo-font";
+// import { SafeAreaView, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './../components/LoginScreen';
@@ -8,6 +9,9 @@ import SignupScreen from './../components/SignupScreen';
 import TabLayout from './(tabs)/_layout'; // Main tab layout
 import NearestCenter from './../components/NearestService';
 import AppointmentBookings from './../components/AppoinmentBooking';
+// import { Slot } from 'expo-router';
+import HelpSupport from './help-support/index';
+import CustomRatings from './custom-ratings-feedback/index';
 
 const Stack = createStackNavigator();
 
@@ -53,7 +57,20 @@ export default function RootLayout() {
           options={{ headerShown: true, title: 'Appointment Booking' }}
         />
 
+        <Stack.Screen
+          name="help-support"
+          component={HelpSupport}
+          options={{ headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="custom-ratings"
+          component={CustomRatings}
+          options={{ headerShown: false}}
+        />
+        
       </Stack.Navigator>
     </NavigationContainer>
+    
   );
 }

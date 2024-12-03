@@ -99,6 +99,9 @@ export default function AppointmentBooking({ route }) {
         <Picker.Item label="Select Vehicle Type" value="" />
         <Picker.Item label="Sedan" value="Sedan" />
         <Picker.Item label="SUV" value="SUV" />
+        <Picker.Item label="HatchBack" value="HatchBack" />
+        <Picker.Item label="Coupe" value="Coupe" />
+        <Picker.Item label="Truck" value="Truck" />
       </Picker>
 
       <Text style={styles.label}>Vehicle Number</Text>
@@ -120,7 +123,13 @@ export default function AppointmentBooking({ route }) {
       <Text style={styles.label}>Branch</Text>
       <Picker selectedValue={branch} style={styles.input} onValueChange={setBranch}>
         <Picker.Item label="Select Branch" value="" />
-        <Picker.Item label="Branch 1" value="Branch 1" />
+        <Picker.Item label="Auto Miraj Kottawa" value="Auto Miraj Kottawa" />
+        <Picker.Item label="Auto Miraj Nugegoda" value="BAuto Miraj Nugegoda" />
+        <Picker.Item label="Auto Miraj Matara" value="Auto Miraj Matara" />
+        <Picker.Item label="Auto Miraj Galle" value="Auto Miraj Galle" />
+        <Picker.Item label="Auto Miraj Colombo 7" value="Auto Miraj Colombo 7" />
+        <Picker.Item label="Auto Miraj Kalutara" value="Auto Miraj Kalutara" />
+        <Picker.Item label="Auto Miraj Badulla" value="Auto Miraj Badulla" />
       </Picker>
 
       <Text style={styles.label}>Date</Text>
@@ -169,6 +178,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginVertical: 5,
     color: Colors.PRIMARY,
+  },
+  value:{
+    fontFamily: 'mulish-semibold',
+    fontSize: 16,
+    marginVertical: 5,
   },
   input: {
     fontFamily: 'mulish-semibold',
