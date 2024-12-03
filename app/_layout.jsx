@@ -7,6 +7,7 @@ import OtpScreen from './../components/OtpScreen';
 import SignupScreen from './../components/SignupScreen';
 import TabLayout from './(tabs)/_layout'; // Main tab layout
 import NearestCenter from './../components/NearestService';
+import AppointmentBookings from './../components/AppoinmentBooking';
 
 const Stack = createStackNavigator();
 
@@ -46,6 +47,12 @@ export default function RootLayout() {
           component={NearestCenter}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="AppointmentBooking"
+          component={AppointmentBookings}
+          options={{ headerShown: true, title: 'Appointment Booking' }}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
