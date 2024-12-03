@@ -11,25 +11,25 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // Function to handle login
   const onPressLogin = async () => {
     if (!email || !password) {
       Alert.alert('Error', 'Both fields are required!');
       return;
     }
-
+  
     try {
       const response = await fetch('http://192.168.103.251:5000/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-
-      const data = await response.json();
-
+  
+      const data = await response.json(); // try to parse JSON
+  
       if (response.ok) {
         console.log('Login Success:', data);
-        await AsyncStorage.setItem('userEmail', email); // Save email for use in Home screen
+        await AsyncStorage.setItem('userEmail', email);
+        await AsyncStorage.setItem('userId', data.userId.toString());  // Save userId to AsyncStorage
         Alert.alert('Success', 'Login successful!');
         navigation.navigate('MainTabs');
       } else {
@@ -37,17 +37,17 @@ export default function LoginScreen() {
         Alert.alert('Error', data.error || 'Login failed');
       }
     } catch (error) {
-      console.error('Error during login:', error);
+      // Log full response to debug
+      console.error('Full response:', error);
       Alert.alert('Error', 'Something went wrong. Please try again later.');
     }
   };
+  
 
-  // Function to handle Google login (not implemented yet)
   const onPressGoogle = async () => {
     Alert.alert('Info', 'Google login feature is under development.');
   };
 
-  // Function to navigate to the signup screen
   const onPressRegister = () => {
     navigation.navigate('Signup');
   };
@@ -58,7 +58,7 @@ export default function LoginScreen() {
     'mulish-semibold':require('./../assets/fonts/Mulish-SemiBold.ttf'),
     'mulish-bold':require('./../assets/fonts/Mulish-Bold.ttf'),
     'mulish-black':require('./../assets/fonts/Mulish-Black.ttf')
-  })
+  });
 
   return (
     <View style={{ flex: 1, backgroundColor: '#e7ecff' }}>

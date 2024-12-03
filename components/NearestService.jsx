@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { Colors } from './../constants/Colors';
+import { useNavigation } from '@react-navigation/native';
 
 export default function NearestService({ navigation }) {
   const stations = [
@@ -14,14 +15,26 @@ export default function NearestService({ navigation }) {
     'Auto Miraj Badulla',
   ];
 
+  const handleStationPress = (station) => {
+    // Navigate to AppointmentBooking screen with selected station
+    navigation.navigate('AppointmentBooking', { selectedStation: station });
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
         <Text style={styles.heading}>Find Your Nearest Service Station</Text>
         <View style={styles.stationsList}>
           {stations.map((station, index) => (
-            <TouchableOpacity key={index} style={styles.stationItem}>
-              <Image source={require('./../assets/images/AutoMiraj.png')} style={styles.image} />
+            <TouchableOpacity
+              key={index}
+              style={styles.stationItem}
+              onPress={() => handleStationPress(station)}
+            >
+              <Image
+                source={require('./../assets/images/AutoMiraj.png')}
+                style={styles.image}
+              />
               <Text style={styles.stationName}>{station}</Text>
             </TouchableOpacity>
           ))}
