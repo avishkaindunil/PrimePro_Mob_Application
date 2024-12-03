@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Home() {
-  
+
   const navigation = useNavigation();
   const [firstName, setFirstName] = useState('');
   const [greeting, setGreeting] = useState('');
@@ -56,12 +56,12 @@ export default function Home() {
       </View>
       <View style={styles.mainContentContainer}>
         <View style={styles.contentContainermainone}>
-        <TouchableOpacity onPress={() => navigation.navigate('NearestService')}>
-          <View style={styles.itemContainer}>
-            <Image source={require('./../../assets/images/carwash.gif')} style={styles.image} />
-            <Text style={styles.wash}>Wash Car</Text>
-          </View>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('NearestService')}>
+            <View style={styles.itemContainer}>
+              <Image source={require('./../../assets/images/carwash.gif')} style={styles.image} />
+              <Text style={styles.wash}>Wash Car</Text>
+            </View>
+          </TouchableOpacity>
           <View style={styles.itemContainer}>
             <Image source={require('./../../assets/images/caroil.gif')} style={styles.image} />
             <Text style={styles.wash}>Oil Change</Text>
@@ -92,80 +92,65 @@ export default function Home() {
           </View>
         </View>
       </View>
-      
       <View style={styles.contentContainerTwo}>
         <Text style={styles.find}>Where is the nearest service center?</Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter your location! "
+          placeholder="Enter your location!"
           placeholderTextColor="#888"
         />
         <View style={styles.contentContainerTwoSub}>
-            <Image source={require('./../../assets/images/map-locator.png')}
-            style={styles.mapLocator} />
-            <View>
-                <Text style={{
-                    fontSize: 18,
-                    fontFamily: 'mulish-semibold'
-                }}>University of Colombo</Text>
-                <Text style={{
-                    fontSize: 12,
-                    fontFamily: 'mulish-medium',
-                    color: '#888',
-                }}>Cumaratunga Munidasa Mw Colombo 03. Sri Lanka</Text>
-            </View>
+          <Image source={require('./../../assets/images/map-locator.png')} style={styles.mapLocator} />
+          <View>
+            <Text style={{ fontSize: 18, fontFamily: 'mulish-semibold' }}>University of Colombo</Text>
+            <Text style={{ fontSize: 12, fontFamily: 'mulish-medium', color: '#888' }}>
+              Cumaratunga Munidasa Mw Colombo 03. Sri Lanka
+            </Text>
+          </View>
         </View>
         <View style={styles.contentContainerThreeSub}>
-            <Image source={require('./../../assets/images/cover-image.jpg')}
-            style={styles.coverImage} />
-            <Text style={{
-                fontSize: 20,
-                fontFamily: 'mulish-bold',
-                marginLeft: 18,
-                paddingTop: 10,
-            }}>PrimePro, now Delivering Happiness!</Text>
-            <Text style={{
-                fontSize: 14,
-                fontFamily: 'mulish-medium',
-                marginLeft: 18,
-                paddingTop: 10,
-                color: '#888',
-                lineHeight: 20,
-            }}>PrimePro connects you with the best car wash and vehicle services. Easily find, book, and manage services for a hassle-free car care experience.</Text>
-            <TouchableOpacity style={styles.button}>
-                <LinearGradient
-                    colors={['#050C9C', '#3572EF']}
-                    style={styles.gradient}
-                >
-                    <Text style={styles.buttonText}>Read More</Text>
-                </LinearGradient>
-            </TouchableOpacity>
+          <Image source={require('./../../assets/images/cover-image.jpg')} style={styles.coverImage} />
+          <Text style={{ fontSize: 20, fontFamily: 'mulish-bold', marginLeft: 18, paddingTop: 10 }}>
+            PrimePro, now Delivering Happiness!
+          </Text>
+          <Text
+            style={{
+              fontSize: 14,
+              fontFamily: 'mulish-medium',
+              marginLeft: 18,
+              paddingTop: 10,
+              color: '#888',
+              lineHeight: 20,
+            }}>
+            PrimePro connects you with the best car wash and vehicle services. Easily find, book, and manage services for a hassle-free car care experience.
+          </Text>
+          <TouchableOpacity style={styles.button}>
+            <LinearGradient colors={['#050C9C', '#3572EF']} style={styles.gradient}>
+              <Text style={styles.buttonText}>Read More</Text>
+            </LinearGradient>
+          </TouchableOpacity>
         </View>
         <View style={styles.contentContainerThreeSub}>
-            <Image source={require('./../../assets/images/cover-image-two.jpg')}
-            style={styles.coverImage} />
-            <Text style={{
-                fontSize: 20,
-                fontFamily: 'mulish-bold',
-                marginLeft: 18,
-                paddingTop: 10,
-            }}>PrimePro, now Delivering Happiness!</Text>
-            <Text style={{
-                fontSize: 14,
-                fontFamily: 'mulish-medium',
-                marginLeft: 18,
-                paddingTop: 10,
-                color: '#888',
-                lineHeight: 20,
-            }}>PrimePro connects you with the best car wash and vehicle services. Easily find, book, and manage services for a hassle-free car care experience.</Text>
-            <TouchableOpacity style={styles.button}>
-                <LinearGradient
-                    colors={['#050C9C', '#3572EF']}
-                    style={styles.gradient}
-                >
-                    <Text style={styles.buttonText}>Read More</Text>
-                </LinearGradient>
-            </TouchableOpacity>
+          <Image source={require('./../../assets/images/cover-image-two.jpg')} style={styles.coverImage} />
+          <Text style={{ fontSize: 20, fontFamily: 'mulish-bold', marginLeft: 18, paddingTop: 10 }}>
+            PrimePro, now Delivering Happiness!
+          </Text>
+          <Text
+            style={{
+              fontSize: 14,
+              fontFamily: 'mulish-medium',
+              marginLeft: 18,
+              paddingTop: 10,
+              color: '#888',
+              lineHeight: 20,
+            }}>
+            PrimePro connects you with the best car wash and vehicle services. Easily find, book, and manage services for a hassle-free car care experience.
+          </Text>
+          <TouchableOpacity style={styles.button}>
+            <LinearGradient colors={['#050C9C', '#3572EF']} style={styles.gradient}>
+              <Text style={styles.buttonText}>Read More</Text>
+            </LinearGradient>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>

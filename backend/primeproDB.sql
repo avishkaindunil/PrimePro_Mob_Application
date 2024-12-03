@@ -97,3 +97,19 @@ CREATE TABLE users (
 );
 
 SELECT * FROM users;
+
+-- Appointment Bookings Table
+CREATE TABLE appointment_bookings (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    mobile VARCHAR(15) NOT NULL,
+    vehicle_type VARCHAR(50),
+    vehicle_number VARCHAR(50),
+    service_type VARCHAR(255),
+    branch VARCHAR(255),
+    date DATE NOT NULL,
+    time TIME NOT NULL
+);
+
+SELECT * FROM appointment_bookings;
+

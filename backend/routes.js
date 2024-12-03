@@ -3,7 +3,6 @@ const pool = require('./db');
 const axios = require('axios');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const userController = require('./controllers/userController');
 
 // Move OTP storage to memory for now
 let otpStorage = {};
@@ -84,9 +83,45 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Fetch user data by ID
+// Get User Route
+router.post('/getUser', async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const result = await pool.query('SELECT first_name FROM users WHERE email = $1', [email]);
+
+    if (result.rows.length > 0) {
+      res.status(200).json({ firstName: result.rows[0].first_name });
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    res.status(500).json({ error: 'Server Error' });
+  }
+});
+
+// Appointment Booking Route
+router.post('/book-appointment', async (req, res) => {
+  try {
+    console.log("Received request body:", req.body); // Log incoming data
+    const { name, mobile, vehicleType, vehicleNumber, serviceType, branch, date, time } = req.body;
+    const result = await pool.query(
+      'INSERT INTO appointment_bookings (name, mobile, vehicle_type, vehicle_number, service_type, branch, date, time) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id',
+      [name, mobile, vehicleType, vehicleNumber, serviceType, branch, date, time]
+    );
+    console.log("Appointment booked with ID:", result.rows[0].id); // Log successful insertion
+    res.status(201).json({ appointmentId: result.rows[0].id });
+  } catch (error) {
+    console.error('Error in booking appointment:', error);
+    res.status(500).send('<h1>Internal Server Error</h1>'); // Explicit error response
+  }
+});
+
+
+// Fetch user details
 router.get('/getUserDetails/:userId', async (req, res) => {
-  const { userId } = req.params.userId;
+  const { userId } = req.params;
 
   try {
     const result = await pool.query(
@@ -103,25 +138,24 @@ router.get('/getUserDetails/:userId', async (req, res) => {
     console.error('Error fetching user details:', error.message || error);
     res.status(500).json({ error: 'Internal server error' });
   }
-  res.json(userDetails);
 });
 
-// Booking Route - Create a new booking for a user
-router.post('/book-appointment', async (req, res) => {
-  const { userId, carWashCenterId, appointmentTime } = req.body;
+// // Booking Route - Create a new booking for a user
+// router.post('/book-appointment', async (req, res) => {
+//   const { userId, carWashCenterId, appointmentTime } = req.body;
 
-  try {
-    const result = await pool.query(
-      'INSERT INTO bookings (user_id, car_wash_center_id, appointment_time) VALUES ($1, $2, $3) RETURNING id',
-      [userId, carWashCenterId, appointmentTime]
-    );
+//   try {
+//     const result = await pool.query(
+//       'INSERT INTO bookings (user_id, car_wash_center_id, appointment_time) VALUES ($1, $2, $3) RETURNING id',
+//       [userId, carWashCenterId, appointmentTime]
+//     );
 
-    res.status(201).json({ message: 'Booking created successfully', bookingId: result.rows[0].id });
-  } catch (error) {
-    console.error('Detailed Error:', error.message || error);
-    res.status(500).json({ error: error.message || 'Failed to create booking. Please try again later.' });
-  }
-});
+//     res.status(201).json({ message: 'Booking created successfully', bookingId: result.rows[0].id });
+//   } catch (error) {
+//     console.error('Detailed Error:', error.message || error);
+//     res.status(500).json({ error: error.message || 'Failed to create booking. Please try again later.' });
+//   }
+// });
 
 // Fetch all bookings for a user
 router.get('/getBookings/:userId', async (req, res) => {
@@ -163,6 +197,7 @@ router.get('/getBookingDetails/:bookingId', async (req, res) => {
     console.error('Error fetching booking details:', error.message || error);
     res.status(500).json({ error: 'Internal server error' });
   }
-});
+}); 
+
 
 module.exports = router;
