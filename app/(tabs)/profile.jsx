@@ -1,13 +1,15 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
-import { Link } from 'expo-router';
+import { useRouter } from 'expo-router'; // Import useRouter for navigation
 import Octicons from '@expo/vector-icons/Octicons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Feather from '@expo/vector-icons/Feather';
 import * as ImagePicker from 'expo-image-picker';
+import { useNavigation } from '@react-navigation/native';
 
-export default function profile() {
+export default function Profile() {
+  const navigation = useNavigation();
   const [profileImage, setProfileImage] = useState(null);
 
   const pickImage = async () => {
@@ -19,7 +21,7 @@ export default function profile() {
     });
 
     if (!result.canceled) {
-      setProfileImage(result.uri);
+      setProfileImage(result.assets[0].uri); // Get the image URI
     }
   };
 
@@ -52,15 +54,15 @@ export default function profile() {
       </View>
       <View style={styles.mainContainerThree}>
         <MaterialIcons name="rate-review" size={24} color="black" />
-        <Link href="/custom-ratings-feedback">
+        <TouchableOpacity onPress={() => navigation.navigate('custom-ratings')}>
         <Text style={styles.mainTextTwo}>Custom Ratings & Feedback</Text>
-        </Link>
+        </TouchableOpacity>
       </View>
       <View style={styles.mainContainerThree}>
         <MaterialIcons name="support-agent" size={24} color="black" />
-        <Link href="/help-support">
+        <TouchableOpacity onPress={() => navigation.navigate('help-support')}>
           <Text style={styles.mainTextTwo}>Help and Support</Text>
-        </Link>
+        </TouchableOpacity>
       </View>
       <View style={styles.mainContainerThree}>
         <MaterialCommunityIcons name="gas-station-outline" size={24} color="black" />

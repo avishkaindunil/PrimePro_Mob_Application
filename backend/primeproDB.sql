@@ -113,3 +113,39 @@ CREATE TABLE appointment_bookings (
 
 SELECT * FROM appointment_bookings;
 
+DROP TABLE IF EXISTS appoinment_bookings;
+
+CREATE TABLE bookings (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255),
+  mobile VARCHAR(15),
+  vehicle_type VARCHAR(50),
+  vehicle_number VARCHAR(20),
+  service_type VARCHAR(255),
+  branch VARCHAR(255),
+  date DATE,
+  time TIME,
+  status VARCHAR(50) DEFAULT 'ongoing'
+);
+
+INSERT INTO bookings (name, mobile, vehicle_type, vehicle_number, service_type, branch, date, time, status)
+VALUES ('John Doe', '0712345678', 'SUV', 'AB-1234', 'Full Service', 'Branch 1', '2024-12-10', '10:00:00', 'ongoing');
+
+SELECT * FROM bookings;
+
+DROP TABLE IF EXISTS bookings;
+
+-- Appointment Bookings Table
+CREATE TABLE appointment_bookings (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    mobile VARCHAR(15) NOT NULL,
+    vehicle_type VARCHAR(50),
+    vehicle_number VARCHAR(50),
+    service_type VARCHAR(255),
+    branch VARCHAR(255),
+    date DATE NOT NULL,
+    time TIME NOT NULL
+);
+
+SELECT * FROM appointment_bookings;

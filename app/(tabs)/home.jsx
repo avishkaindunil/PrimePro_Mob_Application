@@ -55,6 +55,8 @@ export default function Home() {
         <Text style={styles.homes}>{greeting}, {firstName} 😀</Text>
       </View>
       <View style={styles.mainContentContainer}>
+      
+      <Text style={styles.topBlogs}>Services</Text>
         <View style={styles.contentContainermainone}>
           <TouchableOpacity onPress={() => navigation.navigate('NearestService')}>
             <View style={styles.itemContainer}>
@@ -62,55 +64,53 @@ export default function Home() {
               <Text style={styles.wash}>Wash Car</Text>
             </View>
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('NearestService')}>
           <View style={styles.itemContainer}>
-            <Image source={require('./../../assets/images/caroil.gif')} style={styles.image} />
+            <Image source={require('./../../assets/images/caroil.jpg')} style={styles.image} />
             <Text style={styles.wash}>Oil Change</Text>
           </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('NearestService')}>
           <View style={styles.itemContainer}>
             <Image source={require('./../../assets/images/tyre.gif')} style={styles.image} />
             <Text style={styles.wash}>Tire Cleaning</Text>
           </View>
+          </TouchableOpacity>
         </View>
         <View style={styles.contentContainermaintwo}>
+          <TouchableOpacity onPress={() => navigation.navigate('NearestService')}>
           <View style={styles.itemContainer}>
-            <Image source={require('./../../assets/images/fullbattery.gif')} style={styles.image} />
+            <Image source={require('./../../assets/images/fullbattery.jpg')} style={styles.image} />
             <Text style={styles.wash}>Battery Rep.</Text>
           </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('NearestService')}>
           <View style={styles.itemContainer}>
-            <Image source={require('./../../assets/images/engine.gif')} style={styles.image} />
+            <Image source={require('./../../assets/images/engine.jpg')} style={styles.image} />
             <Text style={styles.wash}>Engine Rep.</Text>
           </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('NearestService')}>
           <View style={styles.itemContainer}>
             <Image source={require('./../../assets/images/chassis.gif')} style={styles.image} />
             <Text style={styles.wash}>Chassis Rep.</Text>
           </View>
+          </TouchableOpacity>
         </View>
         <View style={styles.contentContainermainthree}>
+          <TouchableOpacity onPress={() => navigation.navigate('NearestService')}>
           <View style={styles.itemContainer}>
-            <Image source={require('./../../assets/images/ac.gif')} style={styles.image} />
+            <Image source={require('./../../assets/images/ac.jpg')} style={styles.image} />
             <Text style={styles.wash}>Air Filter Rep.</Text>
           </View>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.contentContainerTwo}>
-        <Text style={styles.find}>Where is the nearest service center?</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your location!"
-          placeholderTextColor="#888"
-        />
-        <View style={styles.contentContainerTwoSub}>
-          <Image source={require('./../../assets/images/map-locator.png')} style={styles.mapLocator} />
-          <View>
-            <Text style={{ fontSize: 18, fontFamily: 'mulish-semibold' }}>University of Colombo</Text>
-            <Text style={{ fontSize: 12, fontFamily: 'mulish-medium', color: '#888' }}>
-              Cumaratunga Munidasa Mw Colombo 03. Sri Lanka
-            </Text>
-          </View>
-        </View>
+        <Text style={styles.blogs}>Read our latest blogs</Text>
         <View style={styles.contentContainerThreeSub}>
           <Image source={require('./../../assets/images/cover-image.jpg')} style={styles.coverImage} />
-          <Text style={{ fontSize: 20, fontFamily: 'mulish-bold', marginLeft: 18, paddingTop: 10 }}>
+          <Text style={{ color: '#fff', fontSize: 22, fontFamily: 'mulish-bold', marginLeft: 18, paddingTop: 10 }}>
             PrimePro, now Delivering Happiness!
           </Text>
           <Text
@@ -119,20 +119,20 @@ export default function Home() {
               fontFamily: 'mulish-medium',
               marginLeft: 18,
               paddingTop: 10,
-              color: '#888',
+              color: '#fff',
               lineHeight: 20,
             }}>
             PrimePro connects you with the best car wash and vehicle services. Easily find, book, and manage services for a hassle-free car care experience.
           </Text>
           <TouchableOpacity style={styles.button}>
-            <LinearGradient colors={['#050C9C', '#3572EF']} style={styles.gradient}>
+            <LinearGradient colors={['#050C9C', '#050C9C']} style={styles.gradient}>
               <Text style={styles.buttonText}>Read More</Text>
             </LinearGradient>
           </TouchableOpacity>
         </View>
         <View style={styles.contentContainerThreeSub}>
           <Image source={require('./../../assets/images/cover-image-two.jpg')} style={styles.coverImage} />
-          <Text style={{ fontSize: 20, fontFamily: 'mulish-bold', marginLeft: 18, paddingTop: 10 }}>
+          <Text style={{ color:'#fff', fontSize: 22, fontFamily: 'mulish-bold', marginLeft: 18, paddingTop: 10 }}>
             PrimePro, now Delivering Happiness!
           </Text>
           <Text
@@ -141,13 +141,13 @@ export default function Home() {
               fontFamily: 'mulish-medium',
               marginLeft: 18,
               paddingTop: 10,
-              color: '#888',
+              color: '#fff',
               lineHeight: 20,
             }}>
             PrimePro connects you with the best car wash and vehicle services. Easily find, book, and manage services for a hassle-free car care experience.
           </Text>
           <TouchableOpacity style={styles.button}>
-            <LinearGradient colors={['#050C9C', '#3572EF']} style={styles.gradient}>
+            <LinearGradient colors={['#050C9C', '#050C9C']} style={styles.gradient}>
               <Text style={styles.buttonText}>Read More</Text>
             </LinearGradient>
           </TouchableOpacity>
@@ -191,11 +191,14 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   mainContentContainer:{
-    
+    marginTop:-20,
+    backgroundColor:'#fff',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
   },
   contentContainermainone: {
     backgroundColor: '#fff',
-    marginTop: -20,
+    marginTop: 0,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     display: 'flex',
@@ -229,13 +232,19 @@ const styles = StyleSheet.create({
   itemContainer: {
     alignItems: 'center',
     marginBottom: 20,
-    height:115,
-    width:115,
-    borderColor:Colors.PRIMARY,
-    borderWidth:2,
-    borderRadius:10,
-    padding:15,
-  },
+    height: 115,
+    width: 115,
+    borderColor: Colors.PRIMARY,
+    borderWidth: 2,
+    borderRadius: 20,
+    padding: 15,
+    shadowColor: Colors.PRIMARY, // Shadow color
+    shadowOffset: { width: 0, height: 4 }, // Offset for shadow
+    shadowOpacity: 0.25, // Opacity of shadow
+    shadowRadius: 10, // Blur radius for shadow
+    elevation: 6, // Required for Android
+    backgroundColor: '#fff', // Background color to make the shadow visible
+  },  
   image: {
     backgroundColor: '#f7f7f7',
     width: 72,
@@ -300,7 +309,8 @@ const styles = StyleSheet.create({
     height: 34,
   },
   contentContainerThreeSub: {
-    backgroundColor: '#f7f7f7',
+    marginTop:20,
+    backgroundColor: '#4B70F5',
     paddingTop: 15,
     borderRadius: 20,
     paddingBottom: 10,
@@ -311,8 +321,26 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignSelf: 'center',
   },
+  blogs:{
+    fontSize:27,
+    fontFamily: 'mulish-semibold',
+    color:Colors.PRIMARY,
+    marginLeft:5,
+    marginTop: 10,
+  },
+  topBlogs:{
+    fontSize:27,
+    fontFamily: 'mulish-semibold',
+    color:Colors.PRIMARY,
+    marginLeft:16,
+    marginTop: 10,
+  },
   button: {
-    borderRadius: 20,
+    marginLeft:15,
+    marginRight:15,
+    marginBottom:5,
+    backgroundColor:'#fff',
+    borderRadius: 15,
     overflow: 'hidden',
     marginTop: 20,
   },
