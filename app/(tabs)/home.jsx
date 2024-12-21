@@ -18,7 +18,7 @@ export default function Home() {
         const email = await AsyncStorage.getItem('userEmail');
         console.log('Fetched Email:', email);
         if (email) {
-          const response = await axios.post('http://192.168.103.251:5000/api/getUser', { email });
+          const response = await axios.post('http://192.168.121.251:5000/api/getUser', { email });
           console.log('User Data:', response.data);
           if (response.data && response.data.firstName) {
             setFirstName(response.data.firstName);
