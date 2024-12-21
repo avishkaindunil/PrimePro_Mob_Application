@@ -43,7 +43,7 @@ export default function AppointmentBooking({ route }) {
       };
   
       try {
-        const response = await fetch('http://192.168.103.251:5000/api/book-appointment', {
+        const response = await fetch('http://192.168.121.251:5000/api/book-appointment', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(appointmentData),

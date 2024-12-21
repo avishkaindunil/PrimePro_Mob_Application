@@ -34,7 +34,7 @@ export default function SignupScreen() {
     }
   
     try {
-      const response = await fetch('http://192.168.103.251:5000/api/register', {
+      const response = await fetch('http://192.168.121.251:5000/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ firstName, lastName, email, mobile, password }),

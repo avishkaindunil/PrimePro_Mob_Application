@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Card, Text, Image, StyleSheet, FlatList, TouchableOpacity, ScrollView } from 'react-native';
+import { Colors } from './../../constants/Colors';
 
 const tabs = [
   { id: 'ongoing', title: 'Ongoing' },
@@ -43,9 +44,22 @@ export default function Activities() {
           contentContainerStyle={styles.tabsContainer}
         />
         <View style={styles.contentContainer}>
-          {selectedTab === 'ongoing' && <Text style={styles.content}>
-            You have no any ongoing booking
-          </Text>}
+          {selectedTab === 'ongoing' && 
+          <View style={styles.containerOne}>
+          <View style={styles.card}>
+            <Text style={styles.title}>Booking Details</Text>
+            <View style={styles.detailsContainer}>
+              <Text style={styles.content}>Name: <Text style={styles.highlight}>Avishka</Text></Text>
+              <Text style={styles.content}>Mobile: <Text style={styles.highlight}>94704951719</Text></Text>
+              <Text style={styles.content}>Vehicle Type: <Text style={styles.highlight}>Sedan</Text></Text>
+              <Text style={styles.content}>Vehicle Number: <Text style={styles.highlight}>CDS2205</Text></Text>
+              <Text style={styles.content}>Service Type: <Text style={styles.highlight}>Wash Car</Text></Text>
+              <Text style={styles.content}>Branch: <Text style={styles.highlight}>Auto Miraj Kottawa</Text></Text>
+              <Text style={styles.content}>Date: <Text style={styles.highlight}>4 Dec 2024</Text></Text>
+              <Text style={styles.content}>Time: <Text style={styles.highlight}>11.15</Text></Text>
+            </View>
+          </View>
+        </View>}
 
           {selectedTab === 'completed' && <Text style={styles.content}><View style={styles.carWashContainerOne}>
               <View style={styles.carWashContainerLeft}>
@@ -112,6 +126,45 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
     backgroundColor: '#fff',
+  },
+  containerOne: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+    padding: 10,
+  },
+  card: {
+    width: '90%',
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: Colors.PRIMARY,
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  detailsContainer: {
+    borderTopWidth: 1,
+    borderTopColor: '#e0e0e0',
+    paddingTop: 12,
+  },
+  content: {
+    fontSize: 16,
+    color: '#333',
+    marginBottom: 8,
+  },
+  highlight: {
+    fontWeight: 'bold',
+    color: Colors.PRIMARY,
   },
   container: {
     backgroundColor: '#fff',
